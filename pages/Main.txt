@@ -1,14 +1,20 @@
 %%tabbedSection 
-%%tab-mdomo
-||what||where
-| original welcome page  | [keepOriginalWelcomePage]
-| jspwiki installation gotchas  | [jspwikiInstallationAdministrivia]
-/%
 %%tab-java
 
 ||what||description
 | syntax   | javaSyntaxNotes
+| specific features   | javaFeatureReviewNotes
 | packages tested   | javaPackagesTestedNotes
 
 /%
+%%tab-quickHelp
+
+||what||where
+| wiki Sx  | [TextFormattingRules]
+| mdomo | [mDomo]
+/%
+
+
+
+
 /%
