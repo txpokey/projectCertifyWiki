@@ -1,0 +1,5 @@
+%%tab-mdomo
+||what||where
+| original welcome page  | [keepOriginalWelcomePage]
+| jspwiki installation gotchas  | [jspwikiInstallationAdministrivia]
+/%
