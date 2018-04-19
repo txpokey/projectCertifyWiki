@@ -1,0 +1,88 @@
+Another thing. We always talk about inner CLASSES, but
+actually, we can have inner ABSTRACT CLASSES, inner
+INTERFACES, and inner ENUMS.
+
+But we are going to focus on simple inner classes. There are
+four types of them:
+•	 STATIC inner classes
+•	 NON-STATIC inner classes
+•	 LOCAL classes
+•	 ANONYMOUS classes
+{{{
+public class Computer {
+	 private static class Component { }
+	 protected static class MotherBoard { }
+	 static class Slot { }
+	 private static String serialNumber = "1234X";
+	 public static class Mouse {
+		 void printSN() {
+		
+System.out.println("MOUSE-" + serialNumber);
+		
+}
+}}}
+Another rule is that inner classes CANNOT contain static
+members, unless they're final
+{{{
+final static int capacity = 120; // It does compile!
+}}}
+Because a local inner class is not a member of a class, it CANNOT
+be declared with an access level,
+\\
+
+If the local class is declared inside a method, it can access
+the variables and parameters of the method ONLY if they are
+declared final or are effectively final. Effectively final is only concerned with references, not objects or
+their content. If you’re still not sure about a declaration being effectively final,
+try adding the final modifier to it.
+\\
+
+If the class is declared in a static method, static rules also
+apply, meaning that the local class only has access to the static
+members of the enclosing class.
+
+\\
+
+an anonymous class expression doesn’t
+declare a new class. It either IMPLEMENTS an existing interface
+or EXTENDS an existing class. 
+\\
+
+Also, an anonymous class can be used in a declaration or a
+method call.
+\\
+
+anonymous classes can’t have CONSTRUCTORS. If you want to
+run some initializing code, you have to do it with an initializer
+block.
+\\
+
+But what happens when you declare a new method on the
+anonymous class? A direct reference to the new method, and the program will fail. The reference doesn’t know about the
+method redoIt() because it's not defined in the superclass. but overriden methods in the anonclass can call these new methods. 
+\\
+
+!2 Shadowing
+{{{
+class Computer {
+	 private String serialNumber = "1234XXX";
+	 class HardDrive {
+		 private String serialNumber = "1234DDD";
+		 void printSN(String serialNumber) {
+		
+System.out.println("SN: " + serialNumber);
+		 }
+	}
+}
+}}}
+So, if we use this inside an inner class, it will refer to the inner
+class itself.
+//
+If we need to reference the enclosing class, inside the inner class
+we can also use this , but in this way NameOfTheEnclosingClass.
+{{{
+this ."Computer SN: " + Computer.this.serialNumber
+}}}
+
+
+

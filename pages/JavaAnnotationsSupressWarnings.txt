@@ -1,0 +1,1 @@
+So the warnings issued by Oracle’s Java compiler (as of Java 1.7) are: all, cast, classfile, deprecation, dep-ann, divzero, empty, fallthrough, finally, options, overrides, path, processing, rawtypes, serial, static, try, unchecked, varargs

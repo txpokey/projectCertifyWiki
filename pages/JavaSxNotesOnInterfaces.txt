@@ -1,0 +1,47 @@
+interface 
+
+Fields declared in an interface are by default PUBLIC, STATIC, and
+FINAL.
+
+@Override indicates that a method overrides a method declaration
+in a supertype, either in an interface or a parent class.
+
+default methods to interfaces:
+Default methods cannot be final.
+Default methods cannot be synchronized.
+Default methods are always public.
+You cannot have default methods for the Object ’s class
+methods.
+Classes always WIN over interfaces. If a class overrides a default
+method, the class method will be the one used.
+Another scenario related to this rule is when an inherited instance
+method from a class overrides a default interface method:
+More specific interfaces (or classes) always WIN over less
+specific ones.
+Classes can implement multiple interfaces. What happens when
+two interfaces have the same default method?
+{{{
+interface Parallelizable {
+	
+static void log(String s) {
+		 System.out.println(s);
+	}
+	
+default void processInParallel() {
+		 log("Parallelizable parallel");
+	}
+} ... Parallelizable.log() 
+}}}
+you need to call the default implementation
+of the method, you can do it with the name of the interface
+followed by the keyword super :
+
+We can now design optional methods
+We can have utility methods directly on the interface.
+
+There are still two significant differences:
+•	 A class can only extend from ONE abstract class, but it can
+implement MULTIPLE interfaces.
+•	 An abstract class can have a state through INSTANCE
+variables (fields). An interface CAN’T.
+

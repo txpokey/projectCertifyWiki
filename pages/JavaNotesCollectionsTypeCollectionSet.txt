@@ -1,0 +1,14 @@
+!Set
+
+* null : ok for HashSet ... NOT TreeSet (because of Comparable())
+* HashSet and TreeSet . The difference between them is that TreeSet sorts the elements.
+* nb. HashSet has no get() method... 
+* TreeSet : For sorting, elements have to either implement the
+* Comparable interface (the implementation of compareTo() has to be consistent with the implementation of the equals()
+
+Bulk operations are particularly well suited to Sets; when applied, they perform standard set-algebraic operations. Suppose s1 and s2 are sets. Here's what bulk operations do:
+
+s1.containsAll(s2) — returns true if s2 is a subset of s1. (s2 is a subset of s1 if set s1 contains all of the elements in s2.)
+s1.addAll(s2) — transforms s1 into the union of s1 and s2. (The union of two sets is the set containing all of the elements contained in either set.)
+s1.retainAll(s2) — transforms s1 into the intersection of s1 and s2. (The intersection of two sets is the set containing only the elements common to both sets.)
+s1.removeAll(s2) — transforms s1 into the (asymmetric) set difference of s1 and s2. (For example, the set difference of s1 minus s2 is the set containing all of the elements found in s1 but not in s2.)

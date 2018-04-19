@@ -1,0 +1,160 @@
+!Built-In Lambdas
+* Predicate<T>
+* Consumer<T>
+* Function<T, R>
+* Supplier<T>
+* UnaryOperator<T>
+
+and 1st four have 2-ple duals :
+
+* BiPredicate<L, R>
+* BiConsumer<T, U>
+* BiFunction<T, U, R>
+* BinaryOperator<T>
+
+!Predicate<T>
+; : A predicate is a statement that may be true or false depending on the values of its variables. This functional interface can be used anywhere you need to evaluate a boolean condition.
+
+{{{
+@FunctionalInterface
+public interface Predicate<T> {
+boolean test(T t);
+// ...
+}
+}}}
+
+This interface also has the following default methods:
+* default Predicate<T> and(Predicate<? super T> other)
+* default Predicate<T> or(Predicate<? super T> other)
+* default Predicate<T> negate()
+
+!Consumer<T> 
+
+{{{
+@FunctionalInterface
+public interface Consumer<T> {
+void accept(T t);
+//...
+}
+}}}
+
+T -> void 
+
+{{{
+@FunctionalInterface
+public interface Consumer<T> {
+    void accept(T var1);
+
+    default Consumer<T> andThen(Consumer<? super T> var1) {
+        Objects.requireNonNull(var1);
+        return (var2) -> {
+            this.accept(var2);
+            var1.accept(var2);
+        };
+    }
+}
+}}}
+
+!Function<T, R> 
+
+{{{
+This how the interface is defined:
+@FunctionalInterface
+public interface Function<T, R> {
+R apply(T t);
+// ...
+}
+}}}
+
+T -> R 
+
+This interface also has the following default methods:
+{{{
+default <V> Function<V,R> compose(
+			 Function<? super V,? extends T> before)
+default <V> Function<T,V> andThen(
+			 Function<? super R,? extends V> after)
+static <T> Function<T, T> identity()
+}}}			 
+
+naming convention for "Function" handling "primitive" images and pre-images : 
+* XXXFunction<R> : XXX -> R 
+* ToXXXFunction<T> : T -> XXX
+* XXXToYYYFunction : XXX -> YYY 
+
+!Supplier<T>
+
+* This interface doesn’t define default methods.
+* naming conventions for primitives ala that of Function, except no *ToFunction<R> 
+
+{{{
+@FunctionalInterface
+public interface Supplier<T> {
+T get();
+}
+}}}
+
+() -> T
+
+!UnaryOperator<T> 
+* T -> T
+* naming conventions for primitives int , long and double. e.g. applyAsInt(int). don’t extend from UnaryOperator<T> .
+
+{{{
+@FunctionalInterface
+public interface UnaryOperator<T>
+			
+extends Function<T, T> {
+// inherits "apply" but @Override "identity" 
+}
+}}}
+
+!BiPredicate<T, U>
+
+* (T,U) -> boolean 
+* This interface doesn’t have primitive versions.
+* same default methods of the Predicate interface
+
+{{{
+@FunctionalInterface
+public interface BiPredicate<T, U> {
+boolean test(T t, U u);
+
+default BiPredicate<T, U> and(
+			 BiPredicate<? super T, ? super U> other)
+default BiPredicate<T, U> or(
+			 BiPredicate<? super T, ? super U> other)
+default BiPredicate<T, U> negate()
+
+}
+}}}
+
+!BiConsumer<T, U>
+
+* (T,U) -> void 
+* accept(T,U) 
+
+{{{ default BiConsumer<T, U> andThen( BiConsumer<? super T, ? super U> after) }}}
+
+* There are also primitive versions for int , long and double . They
+don’t extend from BiConsumer<T> , and instead of taking two
+int s, for example, they take one object and a primitive value
+as a second argument. So the naming convention changes to
+ObjXXXConsumer, where XXX is the primitive type
+
+!BiFunction<T, U, R>
+
+* (T,U) -> R 
+* apply
+* andThen
+
+{{{ @FunctionalInterface
+public interface BiFunction<T, U, R> {
+R apply(T t, U u);} }}}
+
+* It only has the versions that take generic types as arguments and return int , long and double primitive types, with the naming convention ToXXXBiFunction<T, U>, where XXX is the primitive type.
+
+!BinaryOperator<T>
+
+* BinaryOperator<T> extends BiFunction<T,T,T>
+* accept, andThen, minBy(Comparator), maxBy(Comparator) 

@@ -1,0 +1,15 @@
+%%tabbedSection 
+%%tab-aggregations
+|aggregation|[javaNotesOnAggregationViaOraTutorial]|
+/%
+%%tab-builder
+All MethodsInstance MethodsAbstract MethodsDefault Methods
+Modifier and Type	Method and Description
+void	accept(T t)
+Adds an element to the stream being built.
+default Stream.Builder<T>	add(T t)
+Adds an element to the stream being built.
+/%
+/%
+
+

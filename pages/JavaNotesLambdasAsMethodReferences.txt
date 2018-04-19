@@ -1,0 +1,11 @@
+!Method Reference
+
+* Instead of using AN ANONYMOUS CLASS you can use A LAMBDA EXPRESSION, And if this just calls one method, you can use A METHOD REFERENCE
+* method reference is the shorthand syntax for a lambda expression that executes just ONE method.
+* '::' terminal-operator for method references
+
+||types of method references
+| static  
+| instance method of an object of a particular type  
+| instance method of an existing object  
+| constructor  

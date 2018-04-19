@@ -1,0 +1,9 @@
+!Map
+
+* TreeMap : sorts the keys 
+* It is important that the objects used as keys have the methods equals() and hashCode() implemented.
+{{{
+Set<String> keys = map.keySet();
+Collection<Integer> values = map.values(); 		
+map.isEmpty() 
+}}}

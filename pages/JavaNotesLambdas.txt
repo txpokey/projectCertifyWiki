@@ -1,0 +1,36 @@
+Anonymous classes are compiled into, well, inner classes.
+But lambda expressions are converted into private static
+(in some cases) methods of their enclosing class and, using
+the invokedynamic instruction (added in Java 7), they are
+bound dynamically.
+
+
+; {{{ Integer::compare }}} : same as a lambda expression for the reference impl of compare()
+
+The signature of the abstract method of a functional interface
+provides the signature of a lambda expression (this signature
+is called a functional descriptor).
+
+The type of the expression is deduced from the context in which the
+lambda is used. This type is called target type.
+
+In the previous example, as the lambda expression is being
+assigned to a Searchable interface, the lambda must take the
+signature of its abstract method. Otherwise, a compiler error is
+generated.
+
+Because of this, the same lambda expression can be associated
+with different functional interfaces if they have a compatible
+abstract method signature.
+
+.... comparison with anon classes ... 
+
+For an anonymous class, 'this' keyword resolves to the
+anonymous class itself. For a lambda expression, it resolves
+to the enclosing class where the lambda is written.
+
+So when you create an instance of an anonymous inner class or
+a lambda expression, the values of local variables are COPIED.
+In other words, you’re not working with the variable, but with
+a copied value. Ergo final is important for intramethod coherency
+

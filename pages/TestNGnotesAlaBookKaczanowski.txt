@@ -1,0 +1,35 @@
+This new pattern was based on the idea that the test method name should convey information about
+the following:
+\\
+
+* preconditions of the test - the state of the SUT and the environment before the test,
+* triggering actions - what makes the SUT act in the expected way,
+* expected results of the test - what should be returned by the SUT, or what state the SUT should be in after the test is finished, or what actions should be performed by the SUT during the test,
+* optionally, the name or role of the SUT, in addition, the test
+\\
+
+Another variation of this idea is to reverse the order and put the type of test double as a suffix, e.g.
+mailServerSpy , templateEngineStub . This way the information concerning the type of the object is more
+easily visible – something which some people consider more valuable.
+\\
+
+Object Mother
+\\
+
+"Test behaviour, not methods!"
+\\
+
+Procedural code gets information, then makes decisions. Object-oriented code tells objects to do things.
+— Alec Sharp
+\\
+
+In my example, all test classes have the following structure:
+• private fields,
+• data providers,
+• set-up methods,
+• test methods,
+• private methods.
+I rarely deviate from this pa
+\\
+
+import org.testng.annotations.Test;

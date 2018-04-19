@@ -1,0 +1,45 @@
+Lesson: Aggregate Operations
+
+Differences Between Aggregate Operations and Iterators
+
+Aggregate operations, like forEach, appear to be like iterators. However, they have several fundamental differences:
+
+They use internal iteration: Aggregate operations 
+
+You specify "what", the JDK does the how to process the stream. could be parallel computing. 
+
+They process elements from a stream: Aggregate operations process elements from a stream, not directly from a collection. Consequently, they are also called stream operations.
+
+They support behavior as parameters: You can specify lambda expressions as parameters for most aggregate operations. This enables you to customize the behavior of a particular aggregate operation.
+
+The Stream.reduce Method
+
+The Stream.collect Method
+
+
+API Note:
+Performing a reduction operation with a Collector should produce a result equivalent to:
+
+     R container = collector.supplier().get();
+     for (T t : data)
+         collector.accumulator().accept(container, t);
+     return collector.finisher().apply(container);
+ 
+The groupingBy operation in this example takes two parameters, a classification function and an instance of Collector. The Collector parameter is called a downstream collector. This is a collector that the Java runtime applies to the results of another collector. Consequently, this groupingBy operation enables you to apply a collect method to the List values created by the groupingBy operator. This example applies the collector mapping, which applies the mapping function Person::getName to each element of the stream. Consequently, the resulting stream consists of only the names of members. A pipeline that contains one or more downstream collectors, like this example, is called a multilevel reduction.
+
+
+
+Concurrent Reduction
+
+ConcurrentMap<Person.Sex, List<Person>> byGender =
+    roster
+        .parallelStream()
+        .collect(
+            Collectors.groupingByConcurrent(Person::getGender));
+
+This is called a concurrent reduction. The Java runtime performs a concurrent reduction if all of the the following are true for a particular pipeline that contains the collect operation:
+
+The stream is parallel.
+The parameter of the collect operation, the collector, has the characteristic Collector.Characteristics.CONCURRENT. To determine the characteristics of a collector, invoke the Collector.characteristics method.
+Either the stream is unordered, or the collector has the characteristic Collector.Characteristics.UNORDERED. To ensure that the stream is unordered, invoke the BaseStream.unordered operation.
+

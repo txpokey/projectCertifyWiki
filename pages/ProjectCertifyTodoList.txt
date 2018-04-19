@@ -1,0 +1,2 @@
+* javap tool example given in invokedynamic article
+* static (default) method within interface. make sure check if you can actually say "static default"

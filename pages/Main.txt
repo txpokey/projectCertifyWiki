@@ -2,10 +2,21 @@
 %%tab-java
 
 ||what||description
-| syntax   | javaSyntaxNotes
+| major topics in Java   | [javaTopLevelTopics]
 | specific features   | javaFeatureReviewNotes
-| packages tested   | javaPackagesTestedNotes
+| packages tested   | [javaPackagesTestedNotes]
 
+/%
+
+%%tab-patterns
+
+||what||description
+| singleton   | [javaPatternsSingleton]
+
+
+/%
+%%tab-todoList
+[projectCertifyTodoList]
 /%
 %%tab-quickHelp
 

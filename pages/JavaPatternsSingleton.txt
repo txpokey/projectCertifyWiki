@@ -1,0 +1,12 @@
+[wikipedia article on singleton|https://en.wikipedia.org/wiki/Singleton_pattern]
+
+%%prettify 
+{{{
+/**
+ * Singleton pattern example using Java Enum
+ */
+public enum EasySingleton{
+    INSTANCE;
+}
+}}}
+/%

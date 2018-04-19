@@ -1,0 +1,6 @@
+@FunctionInterface enforces functional interface rules, but is not necessary to the rules, per se. Get compilation fail if not functional
+
+functional interfaces must have one and only one abstract method. Default or static methods are not abstract. 
+
+overriding Object methods do not count against the one abstract method rule. 
+

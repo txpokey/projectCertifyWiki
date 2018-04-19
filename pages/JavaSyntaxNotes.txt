@@ -1,0 +1,46 @@
+%%tabbedSection 
+%%tab-core
+;keywording access modifiers:[java access modifiers|javaAccessModifiers.png]
+;compilation vs semantic rules:[java access modifiers|javaAccessRulesVsModifiers.png]
+/%
+%%tab-conventions
+;methodNamingConventions:[|methodNamingConventions.png]
+;default values:[|javaDefaultValues.png]
+/%
+
+
+%%tab-autoboxing
+;autoboxing:Converting a primitive value (an int, for example) into an object of the corresponding wrapper class (Integer) is called autoboxing. The Java compiler applies autoboxing when a primitive value is:
+# Passed as a parameter to a method that expects an object of the corresponding wrapper class.
+# Assigned to a variable of the corresponding wrapper class.
+;unboxing:Converting an object of a wrapper type (Integer) to its corresponding primitive (int) value is called unboxing. The Java compiler applies unboxing when an object of a wrapper class is:
+# Passed as a parameter to a method that expects a value of the corresponding primitive type.
+# Assigned to a variable of the corresponding primitive type.
+
+[oracle page on autoboxing|https://docs.oracle.com/javase/tutorial/java/data/autoboxing.html]
+/%
+
+%%tab-classes
+* [javaSxNotesOnInterfaces]
+* [javaSxNotesOnInnerTypesAlaBookEH]
+/%
+%%tab-generics
+| generics   | [javaNotesGenerics]
+/%
+%%tab-lambda
+| lambdas   | [javaNotesLambdas]
+/%
+%%tab-bytecode
+;invokedynamic:[infoQ article on invokedynamic|https://www.infoq.com/articles/Invokedynamic-Javas-secret-weapon]
+/%
+
+%%tab-miscPages
+* [javaSxNotesOnInterfaces]
+* [javaSxNotesOnGenericsAlaBookEH]
+* [javaSxNotesOnInnerTypesAlaBookEH]
+* [testNGnotesAlaBookKaczanowski]
+* [javaSxNotesOnCollectionsAlaBookEH]
+
+/%
+/%
+

@@ -1,0 +1,33 @@
+;collections feature comparison:[collectionsFeatureSummaryTable.png]
+%%tabbedSection 
+%%tab-collectionTypes
+* [java.util.Collection|javaNotesCollectionsTypeCollection]
+* [java.util.Collections|javaNotesCollectionsTypeCollections]
+* [java.util.stream.Collectors|javaNotesStreamsTypeCollectors]
+* [List|javaNotesCollectionsTypeCollectionList]
+* [Set|javaNotesCollectionsTypeCollectionSet]
+* [Queue|javaNotesCollectionsTypeCollectionQueue]
+* [DeQueue|javaNotesCollectionsTypeCollectionQueue]
+* [Map<K,V>|javaNotesCollectionsTypeCollectionMap]
+/%
+
+%%tab-collectionTypesExtended
+* [Ordering|javaNotesCollectionsOrdering]
+* [SortedMap and SortedSet|javaNotesCollectionsSortedTypes]
+* Convenience 
+* Wrapper 
+/%
+
+%%tab-studyResources
+* [javaSxNotesOnCollectionsAlaBookEH]
+* [javaSeNotesOnCollectionsAlaOraTutorial]
+
+/%
+%%tab-java9
+; [factoryMethodsCollectionsJava9.png]
+/%
+%%tab-dummy
+tab content 2
+/%
+/%
+

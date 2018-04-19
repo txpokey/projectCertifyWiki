@@ -1,0 +1,13 @@
+%%tabbedSection 
+
+%%tab-essentialClasses
+| collections   | [collections|javaNotesCollections]
+| functional   | [functional programming|javaNotesFunctionalProgramming]
+| lambdas   | [lambdas | javaNotesLambdas]\\[built-in lambdas|javaNotesLambdasBuiltIn]\\[method references|javaNotesLambdasAsMethodReferences]
+| streams   | [streams|javaNotesStreams]
+/%
+%%tab-syntax
+| syntax   | [javaSyntaxNotes]
+| compilation warnings   | [javaAnnotationsSupressWarnings]
+/%
+/%

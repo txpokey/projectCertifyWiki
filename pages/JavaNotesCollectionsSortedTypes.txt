@@ -1,0 +1,7 @@
+Endpoint Operations
+
+The SortedSet interface contains operations to return the first and last elements in the sorted set, not surprisingly called first and last. In addition to their obvious uses, last allows a workaround for a deficiency in the SortedSet interface. One thing you'd like to do with a SortedSet is to go into the interior of the Set and iterate forward or backward. It's easy enough to go forward from the interior: Just get a tailSet and iterate over it. Unfortunately, there's no easy way to go backward.
+
+The following idiom obtains the first element that is less than a specified object o in the element space.
+
+Object predecessor = ss.headSet(o).last();

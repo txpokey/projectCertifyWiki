@@ -1,0 +1,40 @@
+!List 
+
+* zero based index, and null is allowed
+* growth by returning deep copies 
+* ArrayList implementation uses Object[] 
+* LinkedList , a doubly-linked list that also implements the Deque interface
+\\
+
+Or simply:
+{{{
+List<String> list = Arrays.asList("a", "b", "c", "d"); 
+}}}
+* It returns an implementation of List backed by the specified array
+* (but it's not an ArrayList and it doesn't implement all methods of List ) // ToDO : check this
+* that has fixed size, which means that you can't add elements to it. // ToDO : TEST THIS
+* Also, modifications to the List are reflected in the original array.
+
+
+!Set
+
+* null : ok for HashSet ... NOT TreeSet (because of Comparable())
+* HashSet and TreeSet . The difference between them is that TreeSet sorts the elements.
+* nb. HashSet has no get() method... 
+* TreeSet : For sorting, elements have to either implement the
+* Comparable interface (the implementation of compareTo() has to be consistent with the implementation of the equals()
+
+!Queue
+
+* FIFO: poll() and peek(); return null on empty queues
+* LIFO: ArrayDeque push() and pop() ... but not on Queue interface 
+
+!Map
+
+* TreeMap : sorts the keys 
+* It is important that the objects used as keys have the methods equals() and hashCode() implemented.
+{{{
+Set<String> keys = map.keySet();
+Collection<Integer> values = map.values(); 		
+map.isEmpty() 
+}}}
