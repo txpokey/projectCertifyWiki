@@ -1,0 +1,87 @@
+%%tabbedSection 
+%%tab-API
+[java.io--apiTable.png]
+/%
+%%tab-review
+! I/O Streams
+; stream: stream is a sequence of data.
+; java.io : supports  byte and character streams
+
+! Files
+* files : file as a resource that stores data, organized in directories
+*  java.io.File  : 
+** representation of meta data for file. (new File(path)).exists() may be false
+** isFile() or isDirectory() speak to the Sx of the path string
+
+qn. example of file.list() vs. file.listFiles() 
+
+! Understanding the java.io Package
+* covered on JCP test :
+** *Stream
+** *Reader, *Writer
+** Buffered*
+** wrapper classes
+* byte *Stream classes do not marry outside byte streams, ditto character streams
+* output types' constructors expose an append flag 
+
+! InputStream 
+* abstract
+* available() : blocking estimate 
+* throws IOException: read(), read(byte[]), read(byte[],where,howLong), reset()
+* -1 read : EOF reached else character range 0 to 65535 (0x00-0xffff)
+* mark(readLimit), markSupported()
+* reset(), skip(discardCount)
+
+! OutputStream 
+* abstract 
+* throws IOException: write(int), write(byte[]), write(byte[],where,howLong), flush(), close()
+
+! FileChannel : NIO 
+! FileDescriptor : IO
+
+! FileInputStream extends InputStream
+* raw data e.g., images
+* getChannel(), getFD() 
+* can reuse FileDescriptor upon constructor
+! Reader
+* has {{{char[]}}} and CharBuffer versions of read() 
+* holds: mark(), markSupported(), reset(), ready(), skip(), close() 
+! Writer
+* write() : int, String, {{{char[]}}}
+* append(): char, CharSequence
+* close(), flush()
+
+! FileOutputStream
+* raw data e.g., images
+! FileReader
+* extends InputStreamReader
+* assumes default character encoding, but can be specified at the InputStreamReader level
+! FileWriter
+* extends OutputStreamWriter which extended Writer
+* assumes default character encoding, but can be specified at the OutputStreamWriter on a FileOutputStream
+! BufferedReader
+* wrapper : Reader
+*    while((line = br.readLine()) != null) {
+! BufferedWriter
+*    w.newLine("Writing to the file...");
+! PrintWriter
+* Writer that writes formatted data to another (wrapped) [OutputStream] 
+* format(), print(), printf(), println()
+* canned set of supported charsets, mostly UTF-*
+! Standard streams
+* InputStream System.in, PrintSteam System.out, PrintSteam System.err
+* so Scanner can wrapper System.in and use a nextLine() 
+* so PrintWriter can wrap PrintSteam System.out 
+! java.io.Console
+* System.console()
+* Reader	reader() allows you to wrapper 
+* PrintWriter	writer()
+/%
+/%
+
+
+
+
+
+
+

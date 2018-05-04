@@ -1,0 +1,9 @@
+! ObjectInputStream / ObjectOutputStream
+* only java.io.Serializable or java.io.Externalizable interface can be read from streams.
+* Primitive data types can be read from the stream using the appropriate method on DataInput.
+* The default deserialization mechanism for objects restores the contents of each field to the value and type it had when it was written. Fields declared as transient or static are ignored by the deserialization process. References to other objects cause those objects to be read from the stream as necessary. Graphs of objects are restored correctly using a reference sharing mechanism. New objects are always allocated when deserializing, which prevents existing objects from being overwritten.
+* Reading an object is analogous to running the constructors of a new object. Memory is allocated for the object and initialized to zero (NULL). No-arg constructors are invoked for the non-serializable classes and then the fields of the serializable classes are restored from the stream starting with the serializable class closest to java.lang.object and finishing with the object's most specific class.
+* general API approach:
+** Object	readObject()
+** writeObject(Object obj)
+** corresponding read/write for primatives

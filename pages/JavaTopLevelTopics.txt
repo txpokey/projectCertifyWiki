@@ -1,13 +1,18 @@
 %%tabbedSection 
 
-%%tab-essentialClasses
-| collections   | [collections|javaNotesCollections]
+%%tab-essentialConcepts
+| collections   | [collections|javaNotesCollections]\\[operations on collections|javaNotesCollectionsOperationsOn]
+| time   | [immutable date/time|javaNotesImmutableDateAndTime]\\[parsing into immutable date/time|javaNotesImmutableDateAndTimeParsing]
 | functional   | [functional programming|javaNotesFunctionalProgramming]
+| i/o | [java i/o fundamentals|javaNotesIoFundamentals]\\[java NIO 1&2 |javaNotesNewIoFundamentals]\\[serialization|javaNotesOnObjectSerialization]
 | lambdas   | [lambdas | javaNotesLambdas]\\[built-in lambdas|javaNotesLambdasBuiltIn]\\[method references|javaNotesLambdasAsMethodReferences]
 | streams   | [streams|javaNotesStreams]
+| threading   | [threading|javaNotesThreading]
+| exceptions   | [exceptions|javaNotesExceptions]
 /%
 %%tab-syntax
-| syntax   | [javaSyntaxNotes]
-| compilation warnings   | [javaAnnotationsSupressWarnings]
+| syntax   | [Syntax Notes|javaSyntaxNotes]
+| compilation warnings   | [Suppress Warnings|javaAnnotationsSupressWarnings]
+|try catch blocks | [try-catch-resource-finally|javaNotesExceptionsTryCatch]
 /%
 /%

@@ -1,0 +1,9 @@
+The class(es) used in a try-with-resources block must implement one of the following interfaces:
+
+java.lang.AutoClosable
+java.io.Closable
+They both declare a close() method, and the only practical difference between these two interfaces is that the close method of the Closeable interface only throws exceptions of type IOException:
+
+looks like try( expression ) 
+
+When using a try-with-resources block, catch and finally are optional.

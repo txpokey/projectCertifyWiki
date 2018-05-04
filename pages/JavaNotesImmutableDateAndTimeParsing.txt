@@ -1,0 +1,10 @@
+* All format methods throw the runtime exception: java.time.DateTimeException
+* All parse methods throw the runtime exception: java.time.format.DateTimeParseException
+
+DateTimeFormatter provides three ways to format date/time objects:
+
+# Predefined formatters
+# Locale-specific formatters
+# Formatters with custom patterns
+
+

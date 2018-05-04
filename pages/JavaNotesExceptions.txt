@@ -1,0 +1,31 @@
+java.lang.Throwable
+
+checked : try-catch is required <? extends java.lang.Exception> 
+unchecked : try-catch is optional java.lang.RuntimeException
+ or java.lang.Error
+ 
+	Exception(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace)
+Constructs a new exception with the specified detail message, cause, suppression enabled or disabled, and writable stack trace enabled or disabled.
+
+If an exception is not handled, the JVM provides a default exception handler that performs the following tasks:
+1. It prints out exception description.
+2. It prints the stack trace (hierarchy of methods where the exception occurred).
+3. It causes the program to terminate.
+
+Finally, if the code that throws a checked exception is not inside a try-catch block, the method that contains that code must declare the exception in the throws clause.
+
+The throws keyword indicates the exceptions that a method can throw. Only checked exceptions are required to be declared this way.
+
+If an exception can be caught in more than one block, the exception will be caught in the first block defined.
+
+The catch block is optional. You can have both or either a catch block or a finally block
+
+The finally block is always executed, no matter if an exception is thrown in the try block, re-thrown inside the catch block, or not caught at all
+
+However, we have to respect the hierarchy of the classes, if a superclass is defined before a subclass, a compile-time error is generated
+
+Multi-Catch and Finally
+
+The finally block is ALWAYS executed, even when an exception is caught or when either the try or catch block contains a return statement. For that reason, it's commonly used to close resources like database connections or file handlers.
+
+There's only one exception to this rule. If you call System.exit(), the program will terminate abnormally without executing the finally block. However, as it's considered bad practice to call System.exit(), this rarely happens.

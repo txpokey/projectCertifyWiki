@@ -1,0 +1,70 @@
+%%tabbedSection 
+%%tab-Paths
+! Paths
+* only has 2 methods to get(): String, URI 
+{{{
+Path path = Paths.get("c://temp");
+}}}
+equivalent to:
+{{{
+Path path = FileSystems.getDefault().getPath("c://temp");
+}}}
+/%
+%%tab-PathVsFile
+! Path : replacement for File
+* interface only : including Comparable<Path>, Iterable<Path>, Watchable
+* iterator over Path getName(int)
+* Path.toFile() and File.toPath()
+* isAbsolute()
+* normalize() : will interpret and remove "." in pathstring - without checking existence
+* path1.relativize(path2) is like saying give me a path that shows how to get from path1 to path2.
+* endsWith(...), beginsWith(...), subpath(...):
+** startsWith() and endsWith() both test whether a path begins or ends with some String (in this case, the methods return true only if the string represents an actual element) or Path
+** subpath is like iterating over range of Path getName() 
+* getRoot(), getParent(), getFileName()
+* FileSystem Path.getFileSystem() 
+* Path.toUri() vs. File.toURI() or File.toURL()
+* String File.getAbsolutePath() vs. File File.getAbsoluteFile() 
+* String File.getCanonicalPath() vs. File File.getCanonicalFile() 
+
+* resolve()? 
+
+!File
+* exists() 
+* canExecute(), canRead(), canWrite()
+* createFile() vs. createTempFile() vs. delete() and deleteOnExit() 
+
+!File or Path
+* compareTo() and equals() 
+/%
+%%tab-Files
+!Files has a set of static methods
+* exists(Path), notExists(Path) 
+* isSameFile(Path,Path) 
+* isReadable(Path), isWritable(Path), isExecutable(Path)
+* readAll :
+** byte[] readAllBytes(Path path)
+** List<String> readAllLines(Path path)
+* BufferedReader newBufferedReader(Path path)
+* copy: 
+** Path copy(Path source, Path target, CopyOption... options) 
+** CopyOption enums
+** long copy(InputStream in, Path target, CopyOption... options)
+** copy(Path,OutputStream,...) 
+* delete:
+** Files.delete(Paths.get("/temp/dir1/file.txt"));
+** boolean deleteIfExists(Path path)
+
+/%
+%%tab-FilesVsMetaData
+* Files.size(Path path)
+* Files.isDirectory(...), Files.isRegularFile(...), Files.isSymbolicLink(...), Files.isHidden(...)
+* UserPrincipal getOwner(Path path,...), setOwner(...)
+* attributes:
+** BasicFileAttributes = Files.readAttributes(path, BasicFileAttributes.class, LinkOption... options)
+** FileAttributeView = Files.getFileAttributeView(path, BasicFileAttributes.class, LinkOption... options)
+** static Path	setAttribute(Path path, String attribute, Object value, LinkOption... options)
+/%
+/%
+
+

@@ -1,0 +1,4 @@
+[comparatorVsComparable.png]
+Since this method can be used to test if an object is equal to another one, it's recommended that the implementation is consistent with the equals(Object) method (if the compareTo method returns 0, the equals method must return true).
+
+Once a object implements this interface, it can be sorted by Collections.sort() or Arrays.sort(). Also, it can be used as key in a sorted map (like TreeMap) or in a sorted set (like TreeSet).

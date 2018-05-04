@@ -1,0 +1,40 @@
+* Stream<Path> find(Path start, int maxDepth, BiPredicate<Path, BasicFileAttributes> matcher, FileVisitOption... options)
+* Stream<Path> list(Path dir)
+* Stream<String> lines(Path path)
+* Stream<String> lines(Path path, Charset cs)
+* Stream<Path> walk(Path start, FileVisitOption... options)
+* Stream<Path> walk(Path start, int maxDepth, FileVisitOption... options)
+
+%%tabbedSection 
+%%tab-NIO2-streams
+* try-with-resources to close stream
+
+/%
+%%tab-Files-list
+* iterates over a directory or throws : Stream<Path> list(Path dir)
+* thread safe but is weakly consistent because of changes within the iterator's scope
+/%
+%%tab-Files-find()
+* Files.walk(), but takes an additional argument of type BiPredicate 
+* Stream<Path> find(Path start,
+        int maxDepth,
+        BiPredicate<Path,BasicFileAttributes> matcher,
+        FileVisitOption... options)
+* [example Files.find() | https://www.codesmell.ninja/java-8-finding-files-streams-lambda/]
+* [evernoted Files.find() example | https://www.evernote.com/shard/s26/nl/2899710/91e14f9c-a66f-4c1f-86e7-8a7cefdb8449]
+* This method walks the file tree in exactly the manner specified by the walk method. For each file encountered, the given BiPredicate is invoked with its Path and BasicFileAttributes. The Path object is obtained as if by resolving the relative path against start and is only included in the returned Stream if the BiPredicate returns true. Compare to calling filter on the Stream returned by walk method, this method may be more efficient by avoiding redundant retrieval of the BasicFileAttributes.
+/%
+%%tab-Files-lines()
+* Stream<String> lines(Path path) : UTF-8 default 
+* lines read from the BufferedReader
+/%
+%%tab-Files-walk()
+* depth-first visitor pattern, recursively traverse the subdirectories
+* Files.walk(Paths.get("/temp"), 1) : zero means just starting directory
+* FileSystemLoopException : detects loops 
+* Files.walk(Paths.get("/temp"), 2, FileVisitOption.FOLLOW_LINKS)
+/%
+%%tab-TDB
+[nio2StreamsAPI.png]
+/%
+/%

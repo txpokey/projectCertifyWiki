@@ -1,0 +1,10 @@
+%%tabbedSection 
+%%tab-NIO
+* [intro NIO 1 & 2 |JavaNotesNewIoFundamentalsIntro]
+* [Paths -> Path object |JavaNotesNewIoFundamentalsPathObject]
+* [files and stream()|JavaNotesNewIoFundamentalsStreams]
+/%
+%%tab-memoryMapped
+* [memoryMapped |https://docs.oracle.com/javase/8/docs/api/java/nio/ByteBuffer.html]
+/%
+/%

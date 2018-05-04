@@ -1,0 +1,75 @@
+!legacy java.util.Date vs java.time.* 
+*[legacy date/time javadoc |https://docs.oracle.com/javase/8/docs/api/java/util/Date.html]
+*[new date/time  javadoc |https://docs.oracle.com/javase/8/docs/api/java/time/package-summary.html]
+*[new date/time temporal javadoc |https://docs.oracle.com/javase/8/docs/api/java/time/temporal/package-summary.html]
+*[new date/time formatting javadoc |https://docs.oracle.com/javase/8/docs/api/java/time/format/package-summary.html]
+!LocalDate 
+* holds year, month, day and derived information of a date
+* calendar units all counting from one: months, days. But years range over int ...
+* .get*() methods vs using ChronoField
+* isAfter(), isBefore(), equals() 
+* immutable: 
+** so .with*() methods all create new LocalDate. .with() using ChronoField. .with*() replaces "field" outright
+** LocalDate.from(LocalDateTime)
+** so .plus*() and .minus*() methods create new LocalDate, .plus() or .minus() using ChronoUnit. zero works
+
+!LocalTime 
+* holds hour, minutes, seconds, and nanoseconds.
+* units all counting from zero ...
+* .get*() methods vs using ChronoField
+* isAfter(), isBefore(), equals() 
+* immutable: 
+** so .with*() methods all create new LocalTime. .with() using ChronoField. .with*() replaces "field" outright
+** LocalTime.from(LocalDateTime)
+** so .plus*() and .minus*() methods create new LocalTime, .plus() or .minus() using ChronoUnit.  zero works
+
+
+!LocalDateTime 
+*  combines LocalDate and LocalTime classes' capabilities: holds year, month, day, hour, minutes, seconds, and nanoseconds
+* create via *.of(), .now(), date.atTime(), time.atDate() 
+* .get*(), .with*(), .plus*(), .minus*() == all same as LocalDate, LocalTime
+
+!Instant 
+* from the UNIX epoch
+* really only good for negative powers of 10 * 1 sec. 
+
+!Period 
+*  difference between two LocalDate == time in terms of years, months and days.
+* start date is INCLUDED, but NOT the end date.
+* .get*(), .with*(), .plus*(), .minus*() == all same as LocalDate
+* A zero period will be represented as zero days, P0D
+
+!Duration 
+* difference between two implementations of the interface java.time.temporal.Temporal: days, hours, minutes, seconds, milliseconds, or nanoseconds
+* .get*(), .with*(), .plus*(), .minus*(), except that .with*() is only sec or nano
+* weirdness: 
+** The result can be negative if the end is before the start. A negative duration is expressed with a negative sign in the seconds part. For example, a duration of -100 nanoseconds is stored as -1 second plus 999,999,900 nanoseconds.
+** If the objects are of different types, then the duration is calculated based on the type of the first object. But this only works if the first argument is a LocalTime and the second is a LocalDateTime (because it can be converted to LocalTime). Otherwise, an exception is thrown.
+
+!TemporalAmount 
+!Month 
+[Month javadoc |https://docs.oracle.com/javase/8/docs/api/java/time/Month.html]
+ Use getValue() : month-of-year has an int value. The int value follows normal usage and the ISO-8601 standard, from 1 (January) to 12 (December)
+!ChronoUnit 
+[ChronoUnit javadoc |https://docs.oracle.com/javase/8/docs/api/java/time/temporal/ChronoUnit.html]
+!ChronoField 
+[ChronoField javadoc |https://docs.oracle.com/javase/8/docs/api/java/time/temporal/ChronoField.html]
+* EPOCH_DAY : java or UNIX "epoch"
+
+
+!OffsetDateTime and OffsetTime
+
+OffsetDateTime represents an object with date/time information and an offset from UTC, for example, 2015-01-01T11:30-06:00.
+
+You may think Instant, OffsetDateTime and ZonedDateTime are very much alike, after all, they all store the date and time to a nanosecond precision. However, there are subtle but important differences:
+
+* Instant represents a point in time in the UTC time zone.
+* OffsetDateTime represents a point in time with an offset (any offset).
+* ZonedDateTime represents a point in time in a time zone (any time zone), adding full time zone rules like daylight saving time adjustments.
+
+Java documentation recommends OffsetDateTime when communicating with a database or in a network protocol
+
+!Period vs Duration as examples of TemporalAmount 
+
+The reason is that Period adds a conceptual date, while Duration adds exactly one day (24 hours or 86, 400 seconds) and when it crosses the DST boundary, one hour is added, and the final time is 02:00 instead of 01:00.
+

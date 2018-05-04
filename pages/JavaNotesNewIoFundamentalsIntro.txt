@@ -1,0 +1,3 @@
+! NIO : NIO.1 & NIO.2
+* NIO.1 : java.nio package, including mem mapped io
+* NIO.2 : java.nio.file, Path, Paths, and Files ... replacement for the java.io.File class.

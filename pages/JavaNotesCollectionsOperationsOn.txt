@@ -1,0 +1,10 @@
+%%tabbedSection 
+%%tab-comparableSorting
+[Comparator Comparable|JavaNotesCollectionsOperationsOnAlaComparable]
+/%
+%%tab-tabTitle2
+tab content 2
+/%
+/%
+
+
