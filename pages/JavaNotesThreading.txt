@@ -3,28 +3,59 @@ Identify potential threading problems among deadlock, starvation, livelock, and 
 
 %%tabbedSection 
 %%tab-threads
-* Runnable
+* Runnable 
 * Thread
-/%
-%%tab-callable
-tab content 2
-/%
-%%tab-runnable
-tab content 2
-/%
-%%tab-executor
-tab content 2
+{{{
+Thread thread = new Thread(() -> {
+    System.out.println("Running");
+});
+thread.start();
+}}}
+* thread may not be restarted once it has completed execution
+* implement Runnable on your own because with the new concurrency API, you don't have to create Thread objects directly anymore
 /%
 
-%%tab-ExecutorService
-tab content 2
+%%tab-java-util-concurrent
+%%tabbedSection 
+%%tab-Executor
+* [Executor javadoc|https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/Executor.html]
+* [Executors javadoc|https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/Executors.html]
+* void	execute(Runnable command)
+* designed to be a "drop in " replacement for Thread(Runnable), but semantics-pragmatics about when the thread rises. 
 /%
-%%tab-ScheduledExecutorService
-tab content 2
+%%tab-threadPools
+* Executors use thread pools, which use worker threads. These threads are different than Thread(..)
+* threads are generic, they exist independently from the Runnable tasks they execute
+* newFixedThreadPool() with pool size equal to the number of processors available.
 /%
 %%tab-Future
-tab content 2
+* Future : can apply to a Runnable or Callable. 
+* Runnable will ultimately hold a null, Callable the execution result <T>
+** boolean cancel()
+** boolean mayInterruptIfRunning()
+** V get(long timeout, TimeUnit unit)
+** boolean isCancelled()
+** boolean isDone() 
 /%
+%%tab-Callable
+* Callable: 
+** Callable can return a value and throw a checked exception.
+** functional: V call() throws Exception;
+/%
+%%tab-ExecutorService
+* life cycle methods: isTerminated(), isShutdown(), List<Runnable> shutDownNow() 
+* awaitTermination( timeout , ... ) : blocking with a timer 
+* Callable Collections: List<Future> invokeAll(...), T invokeAny( ... ) 
+* Future<T> submit(...) 
+* [ExecutorService javadoc|https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/ExecutorService.html]
+/%
+%%tab-ScheduledExecutorService
+* [ScheduledExecutorService javadoc|https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/ScheduledExecutorService.html]
+/%
+/%
+
+/%
+
 %%tab-threadingProblems
 %%tabbedSection 
 %%tab-Deadlock
@@ -41,6 +72,4 @@ tab content 2
 /%
 %%tab-t2
 tab content 2
-/%
-/%
 /%

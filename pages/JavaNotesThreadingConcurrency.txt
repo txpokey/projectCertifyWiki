@@ -1,0 +1,93 @@
+%%tabbedSection 
+%%tab-conceptual
+A concurrent collection is thread-safe, but not governed by a single exclusion lock. In the particular case of ConcurrentHashMap, it safely permits any number of concurrent reads as well as a tunable number of concurrent writes. "Synchronized" classes can be useful when you need to prevent all access to a collection via a single lock, at the expense of poorer scalability. In other cases in which multiple threads are expected to access a common collection, "concurrent" versions are normally preferable. And unsynchronized collections are preferable when either collections are unshared, or are accessible only when holding other locks.
+/%
+%%tab-Synchronization
+thread safe by using a single exclusion lock. 
+* synchronized: key word  contexts
+%%tabbedSection 
+%%tab-block
+{{{
+synchronized (o)  // Get the lock of Object o
+{
+    // Code block guarded by the lock
+}
+}}}
+/%
+%%tab-method
+* method() : takes 'this' as lock
+{{{
+public synchronize void method() {
+    // as if synchronized (this) called immediately upon enter block
+}
+}}}
+/%
+%%tab-class
+{{{
+class MyClass {
+    synchronized static void method() {
+        // as if synchronized (MyClass.class) 
+    }
+}
+}}}
+/%
+/%
+
+/%
+%%tab-AtomicClasses
+* java.concurrent.atomic package contains classes to perform atomic operations, which are performed in a single step without the intervention of more than thread
+** AtomicBoolean, AtomicInteger, AtomicLong, and AtomicReference<V>
+** AtomicIntegerArray, AtomicLongArray, and AtomicReferenceArray<E>
+* typical methods: returning value before being called. 
+** boolean compareAndSet(int expect, int update) : Atomically sets the value to the given updated value if the current value equals the expected value.
+** int getAndSet(int newValue) : Atomically sets to the given value and returns the old value.
+** int getAndAdd(int delta)
+** int getAndIncrement()
+** int getAndUpdate(IntUnaryOperator updateFunction)
+** int getAndAccumulate(int x, IntBinaryOperator accumulatorFunction) : function is applied with the current value as its first argument, and the given update as the second argument
+/%
+%%tab-ConcurrentCollections
+
+{{{
+BlockingQueue (for queues)
+BlockingDeque (for deques)
+ConcurrentMap (for maps)
+ConcurrentNavigableMap (for navigable maps like TreeMap)
+}}}
+
+%%tabbedSection 
+%%tab-BlockingQueue
+[blockingQueue.png]
+/%
+%%tab-BlockingDeque
+[blockingDeque.png]
+/%
+%%tab-ConcurrentMap
+{{{
+//Map<String, Integer> map = new HashMap<>();
+Map<String, Integer> map = new ConcurrentHashMap<>();
+map.put("one", 1);
+Integer val = map.get("one");
+}}}
+* V compute(K key, BiFunction<? super K,? super V,? extends V> remappingFunction)
+* V computeIfAbsent(K key, Function<? super K,? extends V> mappingFunction)
+* V computeIfPresent(K key, BiFunction<? super K,? super V,? extends V> remappingFunction)
+* V getOrDefault(Object key, V defaultValue)
+* V merge(K key, V value, BiFunction<? super V,? super V,? extends V> remappingFunction) : If the specified key is not already associated with a (non-null) value, associates it with the given value. Otherwise, replaces the value with the results of the given remapping function, or removes if null. This is performed atomically.
+* V putIfAbsent(K key, V value)
+/%
+%%tab-ConcurrentNavigableMap
+* NavigableMap (like TreeMap) and is implemented by the ConcurrentSkipListMap class, sorted according to the natural ordering of its keys, or by a Comparator provided in its constructor.
+/%
+%%tab-CopyOnWriteArrayList
+tab content 2
+/%
+/%
+/%
+%%tab-CyclicBarrier
+* provides a synchronization point (a barrier point) where a thread may need to wait until all other threads also reach that point.
+* constructors:
+** CyclicBarrier(int threads)
+** CyclicBarrier(int parties, Runnable barrierAction) : will execute the given action when the barrier is reached.
+/%
+/%
