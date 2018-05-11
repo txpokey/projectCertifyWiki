@@ -1,0 +1,4 @@
+#!/bin/ksh -vx
+J=/opt/org/apache/tomcat/current/webapps/jspwiki-canon
+P=/home/mak/var/jspwiki/projectCertifyWiki/pages
+docker run -d -p 9999:8080 --name wiki-0 -v $P:$P -v $J:/usr/local/tomcat/webapps/$(basename $J) txusul/jspwiki-ready:8.5-openjdk8-0 catalina.sh run \>/usr/local/tomcat/logs/catalina.out
