@@ -1,0 +1,21 @@
+* [Outline of the Collections Framework|https://docs.oracle.com/javase/8/docs/technotes/guides/collections/reference.html]
+* [Java Collections Framework Overview | https://docs.oracle.com/javase/8/docs/technotes/guides/collections/index.html]
+* [Java Collections API Design FAQ|https://docs.oracle.com/javase/8/docs/technotes/guides/collections/designfaq.html]
+* [Oracle Tutorial on Collections|https://docs.oracle.com/javase/tutorial/collections/index.html]
+
+%%tabbedSection 
+%%tab-java10
+* [java.util.Collection interface javadoc | https://docs.oracle.com/javase/10/docs/api/java/util/Collection.html]
+* [java.util.Collections javadoc | https://docs.oracle.com/javase/10/docs/api/java/util/Collections.html]
+/%
+%%tab-java9
+* [java.util.Collection interface javadoc | https://docs.oracle.com/javase/9/docs/api/java/util/Collection.html]
+* [java.util.Collections javadoc | https://docs.oracle.com/javase/9/docs/api/java/util/Collections.html]
+/%
+%%tab-java8
+* [java.util.Collection interface javadoc | https://docs.oracle.com/javase/8/docs/api/java/util/Collection.html]
+* [java.util.Collections javadoc | https://docs.oracle.com/javase/8/docs/api/java/util/Collections.html]
+/%
+/%
+
+TBD

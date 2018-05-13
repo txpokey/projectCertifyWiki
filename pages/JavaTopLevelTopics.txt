@@ -1,3 +1,5 @@
+* [Scripting Java (10)|https://docs.oracle.com/javase/10/scripting/using-java-scripts.htm#JSJSG114]
+
 %%tabbedSection 
 
 %%tab-essentialConcepts

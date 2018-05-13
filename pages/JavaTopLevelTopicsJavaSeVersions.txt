@@ -1,0 +1,13 @@
+[Java Tutorials Learning Paths|https://docs.oracle.com/javase/tutorial/tutorialLearningPaths.html]
+
+%%tabbedSection 
+%%tab-javaSE10
+[Oracle JavaSe 10 documentation | https://docs.oracle.com/javase/10/index.html]
+/%
+%%tab-javaSE9
+[Oracle JavaSe 9 documentation | https://docs.oracle.com/javase/9/index.html]
+/%
+%%tab-javaSE8
+[Oracle JavaSe 8 documentation | https://docs.oracle.com/javase/8/index.html]
+/%
+/%

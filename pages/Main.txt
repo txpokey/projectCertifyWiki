@@ -1,8 +1,14 @@
+* [Java 10 SE documentation|https://docs.oracle.com/javase/10/index.html]
+
+* [Java Tutorials Learning Paths|https://docs.oracle.com/javase/tutorial/tutorialLearningPaths.html]
+
+
 %%tabbedSection 
 %%tab-java
 
 ||what||description
 | major topics in Java   | [javaTopLevelTopics]
+| JavaSE major revisions   | [javaTopLevelTopicsJavaSeVersions]
 | specific features   | javaFeatureReviewNotes
 | packages tested   | [javaPackagesTestedNotes]
 
@@ -15,6 +21,7 @@
 
 
 /%
+
 %%tab-todoList
 [projectCertifyTodoList]
 /%
@@ -25,6 +32,14 @@
 | mdomo | [mDomo]
 /%
 
+%%tabbedSection 
+%%tab-SpringFrameworks
+[projectCertifySpringFrameworksOverview]
+/%
+%%tab-TBD
+tab content 2
+/%
+/%
 
 
 
