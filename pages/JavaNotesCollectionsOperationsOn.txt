@@ -1,9 +1,71 @@
+!Streams Operations on Collections
+
 %%tabbedSection 
-%%tab-comparableSorting
+%%tab-comparable
 [Comparator Comparable|JavaNotesCollectionsOperationsOnAlaComparable]
+[comparatorVsComparable.png]
+
+
+
+%%tabbedSection 
+%%tab-Comparable
+!java.lang.Comparable
+* Once a object implements this interface:
+** it can be sorted by Collections.sort() or Arrays.sort(). 
+** Also, it can be used as key in a sorted map (like TreeMap) or in a sorted set (like TreeSet).
+* Since this method can be used to test if an object is equal to another one, it's recommended that the implementation is consistent with the equals(Object) method (if the compareTo method returns 0, the equals method must return true).
+* Comparable is a functional interface, but since Comparable is expected to be implemented by the object being compared, you'll almost never use it as a lambda expression.
 /%
-%%tab-tabTitle2
-tab content 2
+%%tab-Comparator
+!java.util.Comparator
+* One advantage of using a Comparator instead of Comparable is that you can have many Comparators to sort the same object in different ways.
+* functional interface
+{{{
+Comparator<T> Comparator.comparing(Function<? super T, ? extends U>)
+Comparator<T> Comparator.comparingInt(ToIntFunction<? super T>)
+...
+// chaining comparators
+Comparator<T> thenComparing(Comparator<? super T>)
+Comparator<T> thenComparing(Function<? super T, ? extends U>)
+Comparator<T> thenComparingInt(ToIntFunction<? super T>)
+   ...
+   
+}}}
+* Finally, the default method reverse() will create a Comparator that reverses the order of the original Comparator:
+{{{
+List<Computer> list = Arrays.asList(c1, c2, c3, c4);
+Collections.sort(list, Comparator.comparing((Computer c) -> c.id).reversed());
+}}}
+/%
+/%
+
+/%
+
+%%tab-DataAndCalculationMethods
+!Data and Calculation Methods
+{{{
+long count()
+Optional<T> max(Comparator<? super T> comparator)
+Optional<T> min(Comparator<? super T> comparator)
+}}}
+and primitive-dual streams (numbers) will also have a:
+* {{{ int sum() }}}
+* {{{ OptionalDouble average() }}}
+/%
+%%tab-sorting
+!Sorting a Stream
+{{{ 
+Stream<T> sorted() 
+Stream<T> sorted(Comparator<? super T> comparator)
+}}}
+* elements of the stream implement java.lang.Comparable (that way, they are sorted in natural order). Otherwise, a ClassCastException may be thrown.
+{{{
+List<String> strings =
+    Arrays.asList("Stream","Operations","on","Collections");
+strings.stream()
+    .sorted( (s1, s2) -> s2.length() - s1.length() )
+    .forEach(System.out::println);
+}}}
 /%
 /%
 

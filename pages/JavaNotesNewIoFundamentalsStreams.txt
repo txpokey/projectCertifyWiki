@@ -1,19 +1,8 @@
-* Stream<Path> find(Path start, int maxDepth, BiPredicate<Path, BasicFileAttributes> matcher, FileVisitOption... options)
-* Stream<Path> list(Path dir)
-* Stream<String> lines(Path path)
-* Stream<String> lines(Path path, Charset cs)
-* Stream<Path> walk(Path start, FileVisitOption... options)
-* Stream<Path> walk(Path start, int maxDepth, FileVisitOption... options)
+%%tabbedSection 
+%%tab-java_nio_files_Files
+[nio2StreamsAPI.png]
 
 %%tabbedSection 
-%%tab-NIO2-streams
-* try-with-resources to close stream
-
-/%
-%%tab-Files-list
-* iterates over a directory or throws : Stream<Path> list(Path dir)
-* thread safe but is weakly consistent because of changes within the iterator's scope
-/%
 %%tab-Files-find()
 * Files.walk(), but takes an additional argument of type BiPredicate 
 * Stream<Path> find(Path start,
@@ -28,13 +17,21 @@
 * Stream<String> lines(Path path) : UTF-8 default 
 * lines read from the BufferedReader
 /%
+%%tab-Files-list
+* iterates over a directory or throws : Stream<Path> list(Path dir)
+* thread safe but is weakly consistent because of changes within the iterator's scope
+/%
 %%tab-Files-walk()
 * depth-first visitor pattern, recursively traverse the subdirectories
 * Files.walk(Paths.get("/temp"), 1) : zero means just starting directory
 * FileSystemLoopException : detects loops 
 * Files.walk(Paths.get("/temp"), 2, FileVisitOption.FOLLOW_LINKS)
 /%
-%%tab-TDB
-[nio2StreamsAPI.png]
+/%
+
+/%
+%%tab-NIO2-streams
+* try-with-resources to close stream
 /%
 /%
+

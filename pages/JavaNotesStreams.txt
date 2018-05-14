@@ -1,4 +1,68 @@
 %%tabbedSection 
+%%tab-definition
+!What are streams?
+; streams : streams are WRAPPERS for collections and arrays. They wrap an EXISTING collection (or another data source) to support operations expressed with LAMBDAS
+* life cycle:
+#Create the stream.
+#Apply zero or more intermediate operations to transform the initial stream into new streams.
+#Apply a terminal operation to generate a result or a "side-effect".
+* characteristics
+** Streams don't store its elements.
+** immutable
+** not reusable : traversed only once
+** no indexes
+** parallelizable without threading code
+** lazy when possible
+
+/%
+%%tab-create
+!Creating streams : sources (suppliers)
+* {{{java.util.stream.Stream<T>}}} interface.
+** This works with objects only.
+** specializations - primitive types: IntStream, LongStream, and DoubleStream.
+* creation approaches:
+** builder pattern: void accept(T t) Stream.Builder<T> add(T t)
+** stream() method: 
+*** java.util.Collection.stream(...)
+*** Arrays.stream(nums) 
+** Stream.of(array) or Stream.of(objects...) 
+*** {{{Stream<int[]> result = Stream.of( anIntArray ) }}}
+*** IntStream.of(nums)
+** infinite stream : 
+*** static <T> Stream<T> generate(Supplier<T> s)
+**** ergo: Stream<T> limit(long maxSize)
+*** Stream<Integer> s = Stream.iterate(1, t -> t * 2).limit(5);
+** misc: 
+{{{
+static IntStream range(int startInclusive, int endExclusive)
+static IntStream rangeClosed(int startInclusive, int endInclusive)
+... 
+IntStream s1 = new Random().ints(5, 1, 10);
+}}}
+/%
+%%tab-intermediate
+!Intermediate operations with streams : filters (sorts & mappings)
+[streamIntermediates.png]
+/%
+%%tab-terminate
+!Terminal operations : sinks (consumers)
+[streamTerminators.png]
+/%
+%%tab-lazy
+!Lazy operations
+* Intermediate operations are deferred until a terminal operation is invoked. The reason is that intermediate operations can usually be merged or optimized by a terminal operation.
+/%
+%%tab-tabTitle2
+tab content 2
+/%
+/%
+
+
+
+
+
+
+%%tabbedSection 
 %%tab-aggregations
 |aggregation|[javaNotesOnAggregationViaOraTutorial]|
 /%
