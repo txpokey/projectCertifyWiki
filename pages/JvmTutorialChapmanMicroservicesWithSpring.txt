@@ -1,0 +1,4 @@
+!!!Microservices with Spring
+
+; microservice : stand-alone process that handles a well-defined requirement.
+What makes this a microservice is the registration with the discovery-server via {{{@EnableDiscoveryClient}}} and its YML configuration completes the setup:

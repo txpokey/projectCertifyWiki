@@ -1,0 +1,59 @@
+!!!Microservices with Spring Cloud ''By Ken Krueger'' 
+
+!!Course Notes
+
+%%tabbedSection 
+%%tab-Introduction.to.Microservices
+tab content 1
+/%
+%%tab-ModernSpring
+* Modern Spring: Spring Boot, Spring Data, and Spring Data REST
+/%
+%%tab-SpringCloud
+
+%%tabbedSection 
+
+%%tab-overview
+tab content 1
+/%
+%%tab-configuration
+tab content 2
+/%
+
+%%tab-DiscoveryEureka
+tab content 1
+/%
+%%tab-Ribbon
+tab content 2
+/%
+%%tab-Feign
+tab content 1
+/%
+%%tab-hystrix
+tab content 2
+/%
+%%tab-cloudBus
+tab content 1
+/%
+%%tab-APIgateway
+tab content 2
+/%
+%%tab-Zuul
+tab content 1
+/%
+%%tab-eTags
+tab content 2
+/%
+
+/%
+
+/%
+%%tab-Conclusions
+TDB
+/%
+/%
+
+
+
+
+["Microservices with Spring Cloud" By Ken Krueger | https://www.udemy.com/microservices-with-spring-cloud/learn/v4/overview]
