@@ -1,0 +1,103 @@
+!!!Spring Boot: Exploring By Starters
+%%tabbedSection 
+%%tab-run
+{{{
+@SpringBootApplication
+public class Application {
+    public static void main(String[] args) {
+        SpringApplication.run(Application.class, args);
+    }
+   }}}
+  /%
+* @SpringBootApplication == 
+** @Configuration 
+** @ComponentScan
+** @EnableAutoConfiguration 
+%%tab-webApplication
+* spring-boot-starter-web
+* annotations: 
+** @Controller
+** @RequestMapping("/hi")
+** @ResponseBody // actual response, and not a page
+* wires up: 
+** DispatacherServlet, HandlerMappings, Adapters, ViewResolvers
+** embedded tomcat instance (no war)
+* jar -> war :
+** ... extend SpringBootServletInitializer 
+** @Override configure 
+*** WAR will call this instead of main() 
+*** optional to override, in case some DIY spring application builder
+** will see the context name in the URL. 
+/%
+%%tab-webPages
+* spring-boot-starter-thymeleaf
+* remove the @ResponseBody so that the return is the logical view name
+** @PathVariable 
+** will bring in thymeleaf view resolver
+/%
+%%tab-jsp
+* provided: spring-boot-starter-thymeleaf
+* webapp/WEB-INF/views
+* application.properties :
+** spring.view.prefix = /WEB-INF/views
+** spring.view.suffix = .jsp
+** appendix on properties
+/%
+%%tab-RESTful
+* annotations: 
+** @Controller
+** @RequestMapping("/hi")
+** @ResponseBody : actual response as JSON (default)
+*** there exists @RequestBody to convert incoming json to java object as argument to method being mapped
+*** could have used a @RestController, which assumes always a @ResponseBody
+* XML : @XmlRootElement on domain class
+** can decide on the fly : "/hi.json" vs "/hi.xml"
+/%
+%%tab-springData
+* dynamic repositories: 
+** you provide the interface, SD dynamically implements 
+** service layer added to controllers, so controllers can decide web flow. 
+** service layer does business logic, but has co-services w/ Spring Data replacing DAO. 
+* demo: 
+** spring-boot-starter-jpa
+** annotations:
+*** @Entity
+*** @Id @GenerateValue
+*** @OneToMany(<cascade spec>) 
+*** @JoinColumn(<join spec>)
+** does NOT add JDBC drivers
+*** so e.g. an in-memory database: org.hsql/hsql into pom.xml
+** repository: <your> interface extends CrudRepository
+*** service findBy* method naming convention for [aspect]
+**** [ Query Creation naming convention e.g. findByName | https://docs.spring.io/spring-data/jpa/docs/current/reference/html/#jpa.query-methods.query-creation]
+*** @Autowire repository into controller (I prefer using @Service to delegate the JPA repository)
+/%
+%%tab-springDataRest
+* exposes entities via RESTful: get, put, post, delete
+** spring-boot-starter-rest
+* decorate repository interface with @RestResource(path="teams", rel="teams")
+** rel means relationship : HATEOAS keywording 
+** automatically generated @Controllers and @RequestMapping for RESTful persistance api 
+/%
+%%tab-HATEOAS
+* spring data rest uses HATEOAS : express jointable relationship with 'links' ... automatically
+* can be used for versioning the api! 
+* setting the MIME for the api
+/%
+%%tab-actuator
+* Lab: spring.io starters : Select the following dependencies: Web, Thymeleaf, JDBC, JPA, HSQLDB, Actuator.
+* actuator expresses the following RESTful monitoring and api endpoints :
+** /health
+** /info 
+*** can configure to expose : /beans, /configprops, /autoconfig
+*** Look at the console output for "default security password". 
+** /mappings
+/%
+%%tab-Lab
+* [Lab 1 - Spring Boot : instructions| https://github.com/kennyk65/Microservices-With-Spring-Student-Files/blob/master/LabInstructions/Lab%201.md#lab-1---spring-boot]
+/%
+/%
+
+nb. @PostContruct : method once the context starts. (moved to controller)
+
+

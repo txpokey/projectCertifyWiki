@@ -3,11 +3,15 @@
 !!Course Notes
 
 %%tabbedSection 
-%%tab-Introduction.to.Microservices
-tab content 1
+%%tab-runner
+* [running presentation scratchpad | springRawNotesFromPresentationX ]
+/%
+%%tab-IntroductionMicroservices
+[comparison with SOA|JvmTutorialKruegerMicroservicesWithSpringCloudXintroduction]
 /%
 %%tab-ModernSpring
-* Modern Spring: Spring Boot, Spring Data, and Spring Data REST
+* [Modern Spring: Spring Boot, Spring Data, and Spring Data REST : Exploring By Starters|JvmTutorialKruegerMicroservicesWithSpringCloudXModernSpring]
+
 /%
 %%tab-SpringCloud
 
@@ -36,14 +40,31 @@ tab content 2
 tab content 1
 /%
 %%tab-APIgateway
-tab content 2
-/%
-%%tab-Zuul
+
+%%tabbedSection 
+%%tab-purpose
 tab content 1
+/%
+%%tab-zuul
+tab content 2
 /%
 %%tab-eTags
 tab content 2
 /%
+%%tab-caching
+tab content 2
+/%
+%%tab-resourceExpansion
+tab content 2
+/%
+%%tab-protocolConvert
+tab content 2
+/%
+/%
+
+
+/%
+
 
 /%
 

@@ -1,0 +1,51 @@
+!!!microservices
+%%tabbedSection 
+%%tab-definition
+!definition
+; microservices (netflix) : fine grained SOA 
+; microservices (bob) : application architecture for fine grained inter-operable co-services
+
+* operant definition : 
+** application decomposed into independently executing services
+** each service == business capability
+** intercommunicating via open protocols 
+** separately developed, maintained, deployed
+** independently mutated  
+
+* vs SOA : 
+** SOA: 
+*** integration of enterprise applications
+*** smart integration, dumb services
+** microservices
+*** dump integration (registry), smart services
+*** integration of co-services within a single application
+/%
+%%tab-monolithic
+* controllers for web, not handling IoT
+* persistence tech vs. business use case faces back pressure from JARed dependency aggregation 
+* maintenance back pressure from configuration management and QA
+* tech-stack lock in
+* comprehension of large code bases (2 pizza) 
+* integration test acceptance scaling problem for small bug fixes vs. distribution schedule
+* meanwhile (e.g.) FB does code pushes all the time. 
+/%
+%%tab-microservice
+* distributed inter-operation co-services
+* ideal service vs. tech matching 
+* API gateway is another name for what service bus does.
+* not part of single code base, and develop-to-deploy independently
+** crucial: manage service api definition 
+** service layering based on business use case, not tech platform 
+* developer trained to push on Job-Day-One, since code base are easy comprehend
+* governance : choreographed (not orchestrated): deal with many parallel development streams marching to stable interfacing contract
+** polyglot persistence : 
+*** no pan-enterprise data model 
+*** not ACID, but eventual consistence 
+** monitoring and adapting to service failure (availability)
+** falacies of distributed services. 
+/%
+%%tab-serviceDecomposition
+* single responsibility
+* size: easy to experiment 
+/%
+/%

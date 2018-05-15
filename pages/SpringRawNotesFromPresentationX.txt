@@ -1,0 +1,127 @@
+!!!Spring Cloud
+%%tab-SpringCloud
+
+%%tabbedSection 
+
+%%tab-overview
+* technology stack embedded in overall SpringIO universe
+* pattern : common problems needing solutions from tech stack
+** configuration management:
+*** distributed
+*** versioned
+*** centralized
+** service discovery
+** load balance
+** inter-service calls 
+** circuit breakers : prevent non-linear resource consumption, loss of control
+** routing
+* spring cloud netflix : spring adaptation and annotations of Netflix OSS
+
+/%
+%%tab-setup
+* spring-cloud-starter-parent (I think this is subsumed by any of the *-starter)
+* spring-cloud-starter-FOO : where FOO is some stack component in spring cloud landscape
+/%
+%%tab-configuration
+* cloud's distributed nature, and automation : driver for configuration as a service
+** e.g. hard to share filesystems, so property files suck 
+** environment variables have a hot swap, scaling, portability and consistency problem
+* needs analysis : dynamic reloading, client configs self-register, push/pull model like git(1)
+* solutions: 
+** Spring Cloud Bus : push changes
+** Spring Cloud Eureka : self-registration
+%%tabbedSection 
+%%tab-CloudConfigServer
+* could hoover from git-backed local file system
+** placed behind load balancer
+* spring-cloud-starter-config
+* decorate the spring application class (with main()):
+** @SpringBootApplication
+** @EnableConfigServer
+* EnvironmentRepository : git or file (native)
+** naming convention for property files: <sping.application.name>-<profile>.yml
+** directly supports spring.profiles.active 
+*** https:<server>:<port>/<spring.application.name>.<profile>
+*** server-side pattern matching rules give the URI used for GET
+*** without the <profile> then <spring.application.name>.(yml|properties) are included
+* spring.cloud.config.failFast=true // default == false 
+* config server logical variables over ride local matching properties
+** local ones are fallback candidates 
+/%
+%%tab-Client
+*  spring-cloud-starter == client
+* bootstrap.properties :
+{{{
+spring.application.name: appName
+spring.cloud.config.uri: whereDoIGoURI
+}}}
+* Environment - multiple property sources 
+** Spring Cloud Config client adding another property source via the GET <uri>
+/%
+%%tab-Lab3
+[Lab3 instructions | https://github.com/kennyk65/Microservices-With-Spring-Student-Files/blob/master/LabInstructions/Lab%203.md]
+/%
+/%
+
+/%
+%%tab-CloudBus
+tab content 1
+/%
+%%tab-Eureka
+tab content 1
+/%
+%%tab-Ribbon
+tab content 2
+/%
+%%tab-Feign
+tab content 1
+/%
+%%tab-hystrix
+tab content 2
+/%
+%%tab-cloudBus
+tab content 1
+/%
+%%tab-APIgateway
+
+%%tabbedSection 
+%%tab-purpose
+tab content 1
+/%
+%%tab-zuul
+tab content 2
+/%
+%%tab-eTags
+tab content 2
+/%
+%%tab-caching
+tab content 2
+/%
+%%tab-resourceExpansion
+tab content 2
+/%
+%%tab-protocolConvert
+tab content 2
+/%
+/%
+/%
+-=-=-
+%%tabbedSection 
+%%tab-configuration
+tab content 1
+/%
+%%tab-tabTitle2
+tab content 2
+/%
+/%
+
+=-=-=-
+%%tabbedSection 
+%%tab-tabTitle1
+tab content 1
+/%
+%%tab-tabTitle2
+tab content 2
+/%
+/%
+
