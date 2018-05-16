@@ -47,6 +47,8 @@ tab content 2
 ||what||where
 | wiki Sx  | [TextFormattingRules]
 | mdomo | [mDomo]
+* [running presentation scratchpad | springRawNotesFromPresentationX ]
+
 /%
 
 /%

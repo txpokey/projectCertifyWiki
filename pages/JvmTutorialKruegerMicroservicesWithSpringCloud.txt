@@ -1,11 +1,11 @@
 !!!Microservices with Spring Cloud ''By Ken Krueger'' 
 
+["Microservices with Spring Cloud" By Ken Krueger | https://www.udemy.com/microservices-with-spring-cloud/learn/v4/overview]
+
 !!Course Notes
 
 %%tabbedSection 
-%%tab-runner
-* [running presentation scratchpad | springRawNotesFromPresentationX ]
-/%
+
 %%tab-IntroductionMicroservices
 [comparison with SOA|JvmTutorialKruegerMicroservicesWithSpringCloudXintroduction]
 /%
@@ -14,67 +14,9 @@
 
 /%
 %%tab-SpringCloud
-
-%%tabbedSection 
-
-%%tab-overview
-tab content 1
-/%
-%%tab-configuration
-tab content 2
-/%
-
-%%tab-DiscoveryEureka
-tab content 1
-/%
-%%tab-Ribbon
-tab content 2
-/%
-%%tab-Feign
-tab content 1
-/%
-%%tab-hystrix
-tab content 2
-/%
-%%tab-cloudBus
-tab content 1
-/%
-%%tab-APIgateway
-
-%%tabbedSection 
-%%tab-purpose
-tab content 1
-/%
-%%tab-zuul
-tab content 2
-/%
-%%tab-eTags
-tab content 2
-/%
-%%tab-caching
-tab content 2
-/%
-%%tab-resourceExpansion
-tab content 2
-/%
-%%tab-protocolConvert
-tab content 2
-/%
-/%
-
-
-/%
-
-
-/%
-
-/%
-%%tab-Conclusions
-TDB
+[ SpringCloud in Depth |JvmTutorialKruegerMicroservicesWithSpringCloudXSpringCloud]
 /%
 /%
 
 
 
-
-["Microservices with Spring Cloud" By Ken Krueger | https://www.udemy.com/microservices-with-spring-cloud/learn/v4/overview]
