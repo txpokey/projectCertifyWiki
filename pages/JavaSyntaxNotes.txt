@@ -4,9 +4,16 @@
 ;compilation vs semantic rules:[java access modifiers|javaAccessRulesVsModifiers.png]
 /%
 %%tab-conventions
+%%tabbedSection 
+%%tab-methodNamingConventions
 ;methodNamingConventions:[|methodNamingConventions.png]
+/%
+%%tab-defaultValues
 ;default values:[|javaDefaultValues.png]
 /%
+/%
+/%
+
 
 
 %%tab-autoboxing

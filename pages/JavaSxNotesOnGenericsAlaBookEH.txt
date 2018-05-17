@@ -1,80 +1,27 @@
-It's important to emphasize that generics are a thing of the compiler.
-At runtime, Java doesn't know about generics.
-Under the hood, the compiler inserts all the checks and casts for you,
-but at runtime, a generic type is seen by Java as a java.lang.Object
-type. The process of replacing all references to generic types with Object is
-called type erasure.
-{{{
-List raw = new ArrayList();	 // Raw type because not declaring the generic
-}}}
-<> diamond operator
+!!!Generics
 
-Java 8, type inference was improved:
-{{{
-void testGenericParam(List<String> list) { }
-void test() {
-	 // In Java 7, this line generates a compile error
-	 // In Java 8, this line compiles fine
-	testGenericParam(new ArrayList<>());
-}
-}}}
-{{{
-<? extends String>
-<T extends Number>
-<T super Integer>
-}}}
-limitations: 
+%%tabbedSection 
+%%tabbedSection 
+%%tab-Syntax
 
-* no primative types
-* no "new" instances of the generic type. including arrays and lists
-* no static fields of the generic type
-* no "instanceof" binding on a generic type // because of erasure 
-* no generic types and exceptions ... // TODO write code on this
-* You cannot overload a method where type erasure will leave the parameters with the same type.
+%%tabbedSection 
+%%tab-Invoking
+!!Invoking and Instantiating a Generic Type
+* the T in Box<T> is a type parameter and the Integer in Box<Integer> is a type argument.
 {{{
-HUH? List<String>[] array2 = .... HUH? 
+    class Box<T> {}
 }}}
-..................
-Invoking and Instantiating a Generic Type
-
-To reference the generic Box class from within your code, you must perform a generic type invocation, which replaces T with some concrete value, such as Integer:
+* To reference the generic Box class from within your code, you must perform a generic type invocation, which replaces T with some concrete value, such as Integer:
 {{{
 Box<Integer> integerBox;
 }}}
-\\
-
-You can think of a generic type invocation as being similar to an ordinary method invocation, but instead of passing an argument to a method, you are passing a type argument — Integer in this case — to the Box class itself.
-\\
-
-Type Parameter and Type Argument Terminology: Many developers use the terms "type parameter" and "type argument" interchangeably, but these terms are not the same. When coding, one provides type arguments in order to create a parameterized type. Therefore, the T in Foo<T> is a type parameter and the String in Foo<String> f is a type argument. This lesson observes this definition when using these terms.
-\\
-
-Raw types show up in legacy code because lots of API classes (such as the Collections classes) were not generic prior to JDK 5.0. When using raw types, you essentially get pre-generics behavior — a Box gives you Objects. For backward compatibility, assigning a parameterized type to its raw type is allowed:
+* Since now we only have values of one type, we can safely get elements without a cast:
 {{{
-Box<String> stringBox = new Box<>();
-Box rawBox = stringBox;               // OK
-
-// But if you assign a raw type to a parameterized type, you get a warning:
-
-Box rawBox = new Box();           // rawBox is a raw type of Box<T>
-Box<Integer> intBox = rawBox;     // warning: unchecked conversion
+List<String> list = new ArrayList<String>();
+String s = list.get(0);
 }}}
-The @SuppressWarnings("unchecked") annotation suppresses unchecked warnings. 
-
-The complete syntax for invoking this method would be:
-{{{
-Pair<Integer, String> p1 = new Pair<>(1, "apple");
-Pair<Integer, String> p2 = new Pair<>(2, "pear");
-boolean same = Util.<Integer, String>compare(p1, p2);
-
-// The type has been explicitly provided, <Integer,String>. Generally, this can be left out and the compiler will infer the type that is needed:
-
-Pair<Integer, String> p1 = new Pair<>(1, "apple");
-Pair<Integer, String> p2 = new Pair<>(2, "pear");
-boolean same = Util.compare(p1, p2);
-}}}
-This feature, known as type inference, allows you to invoke a generic method as an ordinary method, without specifying a type between angle brackets. This topic is further discussed in the following section, Type Inference.
-
+/%
+%%tab-multiple
 Multiple Bounds
 
 The preceding example illustrates the use of a type parameter with a single bound, but a type parameter can have multiple bounds:
@@ -93,42 +40,107 @@ If bound A is not specified first, you get a compile-time error:
 {{{
 class D <T extends B & A & C> { /* ... */ }  // compile-time error
 }}}
-Generics, Inheritance, and Subtypes : 
+/%
+%%tab-DiamondOperator
+!!<> diamond operator
 
-Now consider the following method:
+Java 8, type inference was improved:
 {{{
-public void boxTest(Box<Number> n) { /* ... */ }
-}}}
-\\
-
-What type of argument does it accept? By looking at its signature, you can see that it accepts a single argument whose type is Box<Number>. But what does that mean? Are you allowed to pass in Box<Integer> or Box<Double>, as you might expect? The answer is "no", because Box<Integer> and Box<Double> are not subtypes of Box<Number>.
-\\
-
-You can subtype a generic class or interface by extending or implementing it. The relationship between the type parameters of one class or interface and the type parameters of another are determined by the extends and implements clauses.
-\\
-
-Using the Collections classes as an example, ArrayList<E> implements List<E>, and List<E> extends Collection<E>. So ArrayList<String> is a subtype of List<String>, which is a subtype of Collection<String>. So long as you do not vary the type argument, the subtyping relationship is preserved between the types.
-\\
-
-Now imagine we want to define our own list interface, PayloadList, that associates an optional value of generic type P with each element. Its declaration might look like:
-{{{
-interface PayloadList<E,P> extends List<E> {
-  void setPayload(int index, P val);
-  ...
+void testGenericParam(List<String> list) { }
+void test() {
+	 // In Java 7, this line generates a compile error
+	 // In Java 8, this line compiles fine
+	testGenericParam(new ArrayList<>());
 }
 }}}
-The following parameterizations of PayloadList are subtypes of List<String>:
+/%
+%%tab-Classes
+!! Generic Classes
+tab content 1
+/%
+%%tab-Methods
+!! Generic Methods
+tab content 2
+/%
+%%tab-Wildcards
+!! Generic Wildcards
 {{{
-PayloadList<String,String>
-PayloadList<String,Integer>
-PayloadList<String,Exception>
+<? extends String>
+<T extends Number>
+<T super Integer>
 }}}
+/%
+/%
+/%
+%%tab-Semantics
+%%tabbedSection 
+
+%%tab-typeInference
+!! Type Inference
+* The type has been explicitly provided, <Integer,String>.
 {{{
-void processStringList(List<String> stringList) {
-    // process stringList
-}
-processStringList(Collections.emptyList());
+boolean same = Util.<Integer, String>compare(p1, p2);
 }}}
+* type inference: allows you to invoke a generic method as an ordinary method, without specifying a type between angle brackets.
+{{{boolean same = Util.compare(p1, p2);}}}
+
+/%
+/%
+
+
+/%
+%%tab-Pragmatics
+%%tabbedSection 
+%%tab-TypeErasure
+!! Type Erasure
+It's important to emphasize that generics are a thing of the compiler.
+At runtime, Java doesn't know about generics.
+Under the hood, the compiler inserts all the checks and casts for you,
+but at runtime, a generic type is seen by Java as a java.lang.Object
+type. The process of replacing all references to generic types with Object is
+called type erasure.
+{{{
+List raw = new ArrayList();	 // Raw type because not declaring the generic
+}}}
+/%
+%%tab-limitations
+!! Limitations
+* no primative types
+* no "new" instances of the generic type. including arrays and lists
+* no static fields of the generic type
+* no "instanceof" binding on a generic type // because of erasure 
+* no generic types and exceptions ... // TODO write code on this
+* You cannot overload a method where type erasure will leave the parameters with the same type.
+{{{
+HUH? List<String>[] array2 = .... HUH? 
+}}}
+/%
+%%tab-RawType
+!! Raw Type
+Raw types show up in legacy code because lots of API classes (such as the Collections classes) were not generic prior to JDK 5.0. When using raw types, you essentially get pre-generics behavior — a Box gives you Objects. For backward compatibility, assigning a parameterized type to its raw type is allowed:
+{{{
+Box<String> stringBox = new Box<>();
+Box rawBox = stringBox;               // OK
+
+// But if you assign a raw type to a parameterized type, you get a warning:
+
+Box rawBox = new Box();           // rawBox is a raw type of Box<T>
+Box<Integer> intBox = rawBox;     // warning: unchecked conversion
+}}}
+The @SuppressWarnings("unchecked") annotation suppresses unchecked warnings. 
+/%
+
+/%
+/%
+/%
+
+--------
+
+%%tabbedSection 
+
+
+/%
+
 
 
 
