@@ -22,7 +22,7 @@ String s = list.get(0);
 }}}
 /%
 %%tab-multiple
-Multiple Bounds
+!!Multiple Bounds
 
 The preceding example illustrates the use of a type parameter with a single bound, but a type parameter can have multiple bounds:
 {{{
@@ -56,19 +56,102 @@ void test() {
 /%
 %%tab-Classes
 !! Generic Classes
-tab content 1
+* the generic type T will be available anywhere within the class:
+{{{
+class Holder<T> {
+    private T t;
+    public Holder(T t) {
+        this.t = t;
+    }
+    public T getObject() {
+        return t;
+    }
+    public void printObject() {
+        System.out.println(t);
+    }
+}
+}}}
+
+* when an instance is created, we just specify the type of T for that instance:
+{{{
+
+Holder<String> h1 = new Holder<>("Hi");
+Holder<Integer> h2 = new Holder<>(1);
+String s = h1.getObject();
+}}}
+* If we don't specify a type parameter, we will be using the raw type (that uses the Object type):
+{{{
+Holder h3 = new Holder("Hi again");
+Object o = h3.getObject();
+}}}
+
 /%
-%%tab-Methods
+%%tab-Method
 !! Generic Methods
-tab content 2
+* these define method that takes an argument of type <T> and then a method of type <T,U>
+* When a method declares its own generic type, it has to be specified before the return type (in contrast to classes, which declare it after the class name).
+{{{
+<T> void genericMethod1(List<T> list) { }
+<T, U> T genericMethod2(U u) {
+    T t = null;
+    return t;
+}
+}}}
+
+
 /%
 %%tab-Wildcards
 !! Generic Wildcards
+
+%%tabbedSection 
+%%tab-Wildcards
+
+!!! syntax
 {{{
+<?>
 <? extends String>
 <T extends Number>
 <T super Integer>
 }}}
+!!! examples
+* don't get confused, one thing is what can you assign and another thing is what you can add, for example:
+{{{
+List<Integer> listInteger = new ArrayList<>();
+List<Object> listObject = new ArrayList<>();
+List<? super Number> listSuperNum = new ArrayList<>();
+listSuperNum.add(new Integer(1)); // OK
+listSuperNum.add(new Float(1.0F)); // OK
+listSuperNum = listInteger; // Error!
+listSuperNum = listObject; // OK
+}}}
+/%
+%%tab-unbounded
+!!! unbounded 
+* unbounded wildcard type {{{<?>}}} means that the type of the list is unknown so that it can match ANY type.
+* you can consider in a way {{{List<?>}}} as the superclass of all Lists, since you can assign any type of List.
+* when using the unbounded wildcard the assignment becomes IMMUTABLE.
+/%
+%%tab-bounded
+!!! bounded wildcards
+{{{
+class Printer<T> {
+   public void print(T t) {
+      System.out.println(t.toUpperCase());// Error
+      // What if T doesn't represent a String?
+   }
+}
+}}}
+
+* The solution is to use the so-called bounded wildcards:
+{{{
+? extends T (Upper-bounded wildcard)
+? super T (Lower-bounded wildcard)
+}}}
+/%
+/%
+
+
+
 /%
 /%
 /%
@@ -109,7 +192,15 @@ List raw = new ArrayList();	 // Raw type because not declaring the generic
 * no "new" instances of the generic type. including arrays and lists
 * no static fields of the generic type
 * no "instanceof" binding on a generic type // because of erasure 
-* no generic types and exceptions ... // TODO write code on this
+* You cannot instantiate an array of generic types (e.g. {{{ T[] foo = new T[100] ;}}})
+* no generic types and exceptions: 
+{{{
+    class Test<T extends Exception> {
+        public void method() throws T { } ; // OK
+        public void method2() throws Test<T extends Exception> { } ; // error
+        public void method3() throws Test<T> { } ; // error
+    }
+}}}
 * You cannot overload a method where type erasure will leave the parameters with the same type.
 {{{
 HUH? List<String>[] array2 = .... HUH? 
@@ -134,12 +225,6 @@ The @SuppressWarnings("unchecked") annotation suppresses unchecked warnings.
 /%
 /%
 
---------
-
-%%tabbedSection 
-
-
-/%
 
 
 

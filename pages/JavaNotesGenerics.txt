@@ -1,3 +1,184 @@
+!!!Generics
+
+%%tabbedSection 
+%%tabbedSection 
+%%tab-Syntax
+
+%%tabbedSection 
+%%tab-Invoking
+!!Invoking and Instantiating a Generic Type
+* the T in Box<T> is a type parameter and the Integer in Box<Integer> is a type argument.
+{{{
+    class Box<T> {}
+}}}
+* To reference the generic Box class from within your code, you must perform a generic type invocation, which replaces T with some concrete value, such as Integer:
+{{{
+Box<Integer> integerBox;
+}}}
+* Since now we only have values of one type, we can safely get elements without a cast:
+{{{
+List<String> list = new ArrayList<String>();
+String s = list.get(0);
+}}}
+/%
+%%tab-multiple
+!!Multiple Bounds
+
+The preceding example illustrates the use of a type parameter with a single bound, but a type parameter can have multiple bounds:
+{{{
+<T extends B1 & B2 & B3>
+}}}
+A type variable with multiple bounds is a subtype of all the types listed in the bound. If one of the bounds is a class, it must be specified first. For example:
+{{{
+Class A { /* ... */ }
+interface B { /* ... */ }
+interface C { /* ... */ }
+
+class D <T extends A & B & C> { /* ... */ }
+}}}
+If bound A is not specified first, you get a compile-time error:
+{{{
+class D <T extends B & A & C> { /* ... */ }  // compile-time error
+}}}
+/%
+%%tab-DiamondOperator
+!!<> diamond operator
+
+Java 8, type inference was improved:
+{{{
+void testGenericParam(List<String> list) { }
+void test() {
+	 // In Java 7, this line generates a compile error
+	 // In Java 8, this line compiles fine
+	testGenericParam(new ArrayList<>());
+}
+}}}
+/%
+%%tab-Classes
+!! Generic Classes
+* the generic type T will be available anywhere within the class:
+{{{
+class Holder<T> {
+    private T t;
+    public Holder(T t) {
+        this.t = t;
+    }
+    public T getObject() {
+        return t;
+    }
+    public void printObject() {
+        System.out.println(t);
+    }
+}
+}}}
+
+* when an instance is created, we just specify the type of T for that instance:
+{{{
+
+Holder<String> h1 = new Holder<>("Hi");
+Holder<Integer> h2 = new Holder<>(1);
+String s = h1.getObject();
+}}}
+* If we don't specify a type parameter, we will be using the raw type (that uses the Object type):
+{{{
+Holder h3 = new Holder("Hi again");
+Object o = h3.getObject();
+}}}
+
+/%
+%%tab-Method
+!! Generic Methods
+* these define method that takes an argument of type <T> and then a method of type <T,U>
+* When a method declares its own generic type, it has to be specified before the return type (in contrast to classes, which declare it after the class name).
+{{{
+<T> void genericMethod1(List<T> list) { }
+<T, U> T genericMethod2(U u) {
+    T t = null;
+    return t;
+}
+}}}
+
+
+/%
+%%tab-Wildcards
+!! Generic Wildcards
+{{{
+<? extends String>
+<T extends Number>
+<T super Integer>
+}}}
+/%
+/%
+/%
+%%tab-Semantics
+%%tabbedSection 
+
+%%tab-typeInference
+!! Type Inference
+* The type has been explicitly provided, <Integer,String>.
+{{{
+boolean same = Util.<Integer, String>compare(p1, p2);
+}}}
+* type inference: allows you to invoke a generic method as an ordinary method, without specifying a type between angle brackets.
+{{{boolean same = Util.compare(p1, p2);}}}
+
+/%
+/%
+
+
+/%
+%%tab-Pragmatics
+%%tabbedSection 
+%%tab-TypeErasure
+!! Type Erasure
+It's important to emphasize that generics are a thing of the compiler.
+At runtime, Java doesn't know about generics.
+Under the hood, the compiler inserts all the checks and casts for you,
+but at runtime, a generic type is seen by Java as a java.lang.Object
+type. The process of replacing all references to generic types with Object is
+called type erasure.
+{{{
+List raw = new ArrayList();	 // Raw type because not declaring the generic
+}}}
+/%
+%%tab-limitations
+!! Limitations
+* no primative types
+* no "new" instances of the generic type. including arrays and lists
+* no static fields of the generic type
+* no "instanceof" binding on a generic type // because of erasure 
+* no generic types and exceptions ... // TODO write code on this
+* You cannot overload a method where type erasure will leave the parameters with the same type.
+{{{
+HUH? List<String>[] array2 = .... HUH? 
+}}}
+/%
+%%tab-RawType
+!! Raw Type
+Raw types show up in legacy code because lots of API classes (such as the Collections classes) were not generic prior to JDK 5.0. When using raw types, you essentially get pre-generics behavior — a Box gives you Objects. For backward compatibility, assigning a parameterized type to its raw type is allowed:
+{{{
+Box<String> stringBox = new Box<>();
+Box rawBox = stringBox;               // OK
+
+// But if you assign a raw type to a parameterized type, you get a warning:
+
+Box rawBox = new Box();           // rawBox is a raw type of Box<T>
+Box<Integer> intBox = rawBox;     // warning: unchecked conversion
+}}}
+The @SuppressWarnings("unchecked") annotation suppresses unchecked warnings. 
+/%
+
+/%
+/%
+/%
+
+
+
+
+
+
+
+
 %%tabbedSection 
 %%tab-GenericsResources
 * [javaSxNotesOnGenericsAlaBookEH]
