@@ -21,6 +21,30 @@ List<String> list = new ArrayList<String>();
 String s = list.get(0);
 }}}
 /%
+%%tab-extends
+!!extends generics 
+* You can subtype a generic class or interface by extending or implementing it. The relationship between the type parameters of one class or interface and the type parameters of another are determined by the extends and implements clauses.
+* Using the Collections classes as an example, ArrayList<E> implements List<E>, and List<E> extends Collection<E>. So ArrayList<String> is a subtype of List<String>, which is a subtype of Collection<String>. So long as you do not vary the type argument, the subtyping relationship is preserved between the types.
+* Now imagine we want to define our own list interface, PayloadList, that associates an optional value of generic type P with each element. Its declaration might look like:
+{{{
+interface PayloadList<E,P> extends List<E> {
+  void setPayload(int index, P val);
+  ...
+}
+}}}
+* The following parameterizations of PayloadList are subtypes of List<String>:
+{{{
+PayloadList<String,String>
+PayloadList<String,Integer>
+PayloadList<String,Exception>
+}}}
+{{{
+void processStringList(List<String> stringList) {
+    // process stringList
+}
+processStringList(Collections.emptyList());
+}}}
+/%
 %%tab-multiple
 !!Multiple Bounds
 
@@ -97,16 +121,65 @@ Object o = h3.getObject();
     return t;
 }
 }}}
-
+Now consider the following method:
+{{{
+public void boxTest(Box<Number> n) { /* ... */ }
+}}}
+* What type of argument does it accept? By looking at its signature, you can see that it accepts a single argument whose type is Box<Number>. But what does that mean? Are you allowed to pass in Box<Integer> or Box<Double>, as you might expect? The answer is "no", because Box<Integer> and Box<Double> are not subtypes of Box<Number>.
 
 /%
 %%tab-Wildcards
 !! Generic Wildcards
+
+%%tabbedSection 
+%%tab-Wildcards
+
+!!! syntax
 {{{
+<?>
 <? extends String>
 <T extends Number>
 <T super Integer>
 }}}
+!!! examples
+* don't get confused, one thing is what can you assign and another thing is what you can add, for example:
+{{{
+List<Integer> listInteger = new ArrayList<>();
+List<Object> listObject = new ArrayList<>();
+List<? super Number> listSuperNum = new ArrayList<>();
+listSuperNum.add(new Integer(1)); // OK
+listSuperNum.add(new Float(1.0F)); // OK
+listSuperNum = listInteger; // Error!
+listSuperNum = listObject; // OK
+}}}
+/%
+%%tab-unbounded
+!!! unbounded 
+* unbounded wildcard type {{{<?>}}} means that the type of the list is unknown so that it can match ANY type.
+* you can consider in a way {{{List<?>}}} as the superclass of all Lists, since you can assign any type of List.
+* when using the unbounded wildcard the assignment becomes IMMUTABLE.
+/%
+%%tab-bounded
+!!! bounded wildcards
+{{{
+class Printer<T> {
+   public void print(T t) {
+      System.out.println(t.toUpperCase());// Error
+      // What if T doesn't represent a String?
+   }
+}
+}}}
+
+* The solution is to use the so-called bounded wildcards:
+{{{
+? extends T (Upper-bounded wildcard)
+? super T (Lower-bounded wildcard)
+}}}
+/%
+/%
+
+
+
 /%
 /%
 /%
@@ -147,7 +220,15 @@ List raw = new ArrayList();	 // Raw type because not declaring the generic
 * no "new" instances of the generic type. including arrays and lists
 * no static fields of the generic type
 * no "instanceof" binding on a generic type // because of erasure 
-* no generic types and exceptions ... // TODO write code on this
+* You cannot instantiate an array of generic types (e.g. {{{ T[] foo = new T[100] ;}}})
+* no generic types and exceptions: 
+{{{
+    class Test<T extends Exception> {
+        public void method() throws T { } ; // OK
+        public void method2() throws Test<T extends Exception> { } ; // error
+        public void method3() throws Test<T> { } ; // error
+    }
+}}}
 * You cannot overload a method where type erasure will leave the parameters with the same type.
 {{{
 HUH? List<String>[] array2 = .... HUH? 
@@ -171,13 +252,6 @@ The @SuppressWarnings("unchecked") annotation suppresses unchecked warnings.
 /%
 /%
 /%
-
-
-
-
-
-
-
 
 %%tabbedSection 
 %%tab-GenericsResources
