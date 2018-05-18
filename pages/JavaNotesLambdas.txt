@@ -1,20 +1,96 @@
 !!!Lambda Expressions
-* definitions-terminology :
-** functional descriptor : The signature of the abstract method of a functional interface provides the signature of a lambda expression
-** target type : The type of the expression is deduced from the context in which the lambda is used.
-** method reference syntax ("::" terminal) : 
-*** {{{ Integer::compare }}} : same as a lambda expression for the reference impl of compare()
 
-* comparison with anon classes:  
-** Anonymous classes are compiled into, well, inner classes. But lambda expressions are converted into private static (in some cases) methods of their enclosing class and, using the invokedynamic instruction (added in Java 7), they are bound dynamically.
+%%tabbedSection 
+%%tab-definition
+!! definition
+* In practical terms, it may be safe to think of lambda expressions as anonymous (private) methods, but they are different from anonymous classes. lambdas are private methods, anonymous classes are private inner methods. Each of their enclosing classes. 
+* BNF: parameters arrow  body
+** {{{ () -> "Hello World" }}}
+** {{{ (String s) -> "Hello World:> " + s }}}
+** {{{ (s) -> "Hello World:> " + s }}}
+** {{{ (a,b) -> String.format("Hello World:%s> %s%n" , a , b )  }}}
+
+!! definitions-terminology :
+* functional descriptor : The signature of the abstract method of a functional interface provides the signature of a lambda expression
+* target type : The type of the expression is deduced from the context in which the lambda is used.
+* method reference syntax ("::" terminal) : 
+** {{{ Integer::compare }}} : same as a lambda expression for the reference impl of compare()
+
+
+/%
+%%tab-functionalInterfaces
+!! as functional interfacing
+* lambdas are assignable to target type which are functional: 
+** interfaces having only one abstract, non-default method
+** there are a set of rules for inheritance and shadowing vs. functional interfaces valid for lambda target types
+* compiler infers the target type, and from there the functional method signature. Then the compiler plays match-up, so the lambda expression can be assigned to the target type. 
+* in Java, you can't always program in a purely functional style (i.e. without any side effect), only in a functional-style.
+
+
+!! use case scenarios
+# A variable declaration
+# An assignment
+# A return statement
+# An array initializer
+# Method or constructor arguments
+# A ternary conditional expression
+# A cast expression
+
+/%
+%%tab-anonClasses
+%%tabbedSection 
+%%tab-SyntaxCompareContrast
+!! Syntax vs. anonymous classes
+* lambda :
+{{{
+List compactCars = findCars(cars,
+     (Car c) ->
+        car.getType().equals(CarTypes.COMPACT)
+);
+}}}
+* anonymous :
+{{{
+
+List<Car> compactCars = findCars(cars,
+     new Searchable() {
+        public boolean test(Car car) {
+           return car.getType().equals(
+                     CarTypes.COMPACT);
+        }
+});
+}}}
+
+/%
+%%tab-compareContrast
+!! Rules
+* lambda must take the signature of its abstract  method. Otherwise, a compiler error is generated.
+** Because of this, the same lambda expression can be associated with different functional interfaces if they have a compatible abstract method signature.
+* Lambda expressions are an ALTERNATIVE to anonymous classes, but they are not the same:
+* differences: 
+** Anonymous classes are compiled into, well, inner classes. 
+** lambda expressions are converted into private static (in some cases) methods of their enclosing class and, using the invokedynamic instruction (added in Java 7), they are bound dynamically. 
+*** Since there's no need to load another class, lambda expressions are more efficient. 
 ** For an anonymous class, 'this' keyword resolves to the anonymous class itself. For a lambda expression, it resolves to the enclosing class where the lambda is written.
-** So when you create an instance of an anonymous inner class or a lambda expression, the values of local variables are COPIED. In other words, you’re not working with the variable, but with a copied value. Ergo final is important for intramethod coherency
+** Default methods of a functional interface cannot be accessed directly from within lambda expressions. Anonymous classes can.
+* They have some similarities:
+** Local variables (variables or parameters defined in a method) can only be used if they are declared final or are effectively final.
+** You can access instance or static variables of the enclosing class.
+** They must not throw more checked exceptions than specified in the throws clause of the functional interface method. Only the same type or a subtype.
 
+/%
+/%
+/%
+%%tab-limitations
+* If the lambda expression uses a parameter name which is the same as a variable name of the enclosing context, a compile error is generated:
+{{{
+// This doesn't compile
+String s = ""; s -> System.out.println(s);
+}}}
 
-{{{ TBD }}}
+/%
+/%
+--------
 
-* In the previous example, as the lambda expression is being assigned to a Searchable interface, the lambda must take the signature of its abstract  method. Otherwise, a compiler error is generated.
-* Because of this, the same lambda expression can be associated with different functional interfaces if they have a compatible abstract method signature.
 
 
 
