@@ -1,0 +1,73 @@
+!!! React Fundamentals (Plural Sight)
+
+%%tabbedSection 
+%%tab-summary
+! Summary :
+* Components are the building blocks of React applications
+* Components are composable
+* Components map to equivalent DOM nodes
+* createClass defines a component
+* render renders a component definition into the DOM
+* Props provide the immutable data for a component
+* State provides the mutable data for a component
+* propTypes allow basic validation of props
+* Mixins allow reuse between components
+/%
+%%tab-arch
+* architecture favors hierarchical components
+* rendering components. components are dual to <elements/> with custom behavior, similar concept to angular E-directives
+* top level of namespace: React
+* define components that are nest-able :
+** React.createClass( render function aka JSX function )
+* rendering means linking your component to an existing DOM element and populating it with your react component
+** React.renderComponent( object )
+** gets converted into javascript via (e.g) {{{React.DOM.div ...}}} 
+
+/%
+%%tab-syntax
+* syntax
+** {{{ {javascript expression passed as an argument to a react component}}}}
+** "string literal data"
+** within the component: this.props.now or this.props.bob
+/%
+%%tab-api
+* getInitialState: object 
+* timer: setInterval( object )
+* state: global props
+** component needs to use state when its not a parent-child relationship 
+** setState(obj) : works like a union, rerender 
+** this.state 
+* props :
+** this.props
+** getDefaultProps( o ) : {{{React.renderComponent(<Text foregroundColor="lightgrey" content="this is my content"/>, document.body);}}}
+/%
+%%tab-library
+* can use a flex-stream style "map( function ...)" to cause a loop over an array, applying the function to each item
+/%
+%%tab-prags
+* jsxtransform.js dependency {{{ <script src="js/app.js" type="text/jsx"></script>}}}
+* use strict
+/%
+%%tab-validateProps
+!! validate components prop dependency
+* example: 
+    {{{... 
+        now: React.PropTypes.string.isRequired,
+        b: React.PropTypes.string.oneOf([]),
+        ...
+        }}}
+/%
+%%tab-mixins
+
+!! mixins
+* allows common code to be merged into another component
+** {{{mixins: [mixin1, mixIn2, ...]}}}
+** react life-cycle function called after each render "componentDidUpdate"
+/% 
+/%
+-------------
+
+
+
+
+

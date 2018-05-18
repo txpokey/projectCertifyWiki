@@ -68,10 +68,12 @@ tab content 2
 /%
 %%tab-udemy
 * [Ken Krueger : 2018 : Microservices with Spring Cloud| jvmTutorialKruegerMicroservicesWithSpringCloud ]
+/%/%/%
+/%/%/%
+%%tabbedSection 
+%%tab-javascript
+%%tabbedSection 
+%%tab-reactJS
+* [PluralSight : React Fundamentals | projectCertifyJavascriptFrameworksReactJsPluralSightReactFundamentals]
 /%
-/%
-/%
-
-/%
-
-/%
+/%/%/%
