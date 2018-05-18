@@ -21,6 +21,30 @@ List<String> list = new ArrayList<String>();
 String s = list.get(0);
 }}}
 /%
+%%tab-extends
+!!extends generics 
+* You can subtype a generic class or interface by extending or implementing it. The relationship between the type parameters of one class or interface and the type parameters of another are determined by the extends and implements clauses.
+* Using the Collections classes as an example, ArrayList<E> implements List<E>, and List<E> extends Collection<E>. So ArrayList<String> is a subtype of List<String>, which is a subtype of Collection<String>. So long as you do not vary the type argument, the subtyping relationship is preserved between the types.
+* Now imagine we want to define our own list interface, PayloadList, that associates an optional value of generic type P with each element. Its declaration might look like:
+{{{
+interface PayloadList<E,P> extends List<E> {
+  void setPayload(int index, P val);
+  ...
+}
+}}}
+* The following parameterizations of PayloadList are subtypes of List<String>:
+{{{
+PayloadList<String,String>
+PayloadList<String,Integer>
+PayloadList<String,Exception>
+}}}
+{{{
+void processStringList(List<String> stringList) {
+    // process stringList
+}
+processStringList(Collections.emptyList());
+}}}
+/%
 %%tab-multiple
 !!Multiple Bounds
 
@@ -97,7 +121,11 @@ Object o = h3.getObject();
     return t;
 }
 }}}
-
+Now consider the following method:
+{{{
+public void boxTest(Box<Number> n) { /* ... */ }
+}}}
+* What type of argument does it accept? By looking at its signature, you can see that it accepts a single argument whose type is Box<Number>. But what does that mean? Are you allowed to pass in Box<Integer> or Box<Double>, as you might expect? The answer is "no", because Box<Integer> and Box<Double> are not subtypes of Box<Number>.
 
 /%
 %%tab-Wildcards
