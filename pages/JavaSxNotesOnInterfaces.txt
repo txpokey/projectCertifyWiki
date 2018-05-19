@@ -1,47 +1,99 @@
-interface 
+!!! interfaces
+%%tabbedSection 
+%%tab-vsClasses
+* An interface cannot be marked as final.
+* Interfaces are abstract by default (you don't have to specify it). 
 
-Fields declared in an interface are by default PUBLIC, STATIC, and
-FINAL.
-
-@Override indicates that a method overrides a method declaration
-in a supertype, either in an interface or a parent class.
-
-default methods to interfaces:
-Default methods cannot be final.
-Default methods cannot be synchronized.
-Default methods are always public.
-You cannot have default methods for the Object ’s class
-methods.
-Classes always WIN over interfaces. If a class overrides a default
-method, the class method will be the one used.
-Another scenario related to this rule is when an inherited instance
-method from a class overrides a default interface method:
-More specific interfaces (or classes) always WIN over less
-specific ones.
-Classes can implement multiple interfaces. What happens when
-two interfaces have the same default method?
+* Fields declared in an interface are by default PUBLIC, STATIC, and FINAL. fields are CONSTANTS instead of VARIABLES:
 {{{
-interface Parallelizable {
-	
-static void log(String s) {
-		 System.out.println(s);
-	}
-	
-default void processInParallel() {
-		 log("Parallelizable parallel");
-	}
-} ... Parallelizable.log() 
+interface Monitorable {
+    int ID = 0; // You have to assign a value at creation time
+}
+class Resource implements Monitorable {
+    void change() {
+        ID = 5; // This WON'T compile
+    }
+}
 }}}
-you need to call the default implementation
-of the method, you can do it with the name of the interface
-followed by the keyword super :
+/%
+%%tab-vsAbstractClasses
+!! vs. abstract classes
+* significant differences:
+** A class can only extend from ONE abstract class, but it can implement MULTIPLE interfaces.
+** An abstract class can have a state through INSTANCE variables (fields). An interface CAN’T.
+** An interface can extend any number of interfaces, but it cannot extend from any kind of class.
+* if one or more of the interface's methods are not implemented, you must mark the class (and the methods) as abstract:
+{{{
+abstract class Server implements Monitorable {
+    public void monitor() {
+        // Implementation
+    }
+    public abstract void setup();
+}
+}}}
+/%
+%%tab-InterfaceInheritance
 
-We can now design optional methods
-We can have utility methods directly on the interface.
+!! Inheritance
+* two rules regarding inheritances and interfaces:
+** A class can implement (not extend from) any number of interfaces.
+** An interface can extend any number of interfaces, but it cannot extend from a class.
+* @Override indicates that a method overrides a method declaration in a supertype, either in an interface or a parent class.
+/%
+%%tab-defaultMethods
+%%tabbedSection 
+%%tab-defaultMethods
 
-There are still two significant differences:
-•	 A class can only extend from ONE abstract class, but it can
-implement MULTIPLE interfaces.
-•	 An abstract class can have a state through INSTANCE
-variables (fields). An interface CAN’T.
+!! default methods
+{{{
+interface Processable {
+    void processInSequence();
+    default void processInParallel() {
+        /** Default implementation goes here */
+    }
+}
+}}}
+* interfaces can have 'default' methods, with implementation code as can abstract methods:
+** Default methods cannot be final.
+** Default methods cannot be synchronized.
+** Default methods are always public.
+** You cannot have default methods for the Object’s class methods.
+/%
+%%tab-defaultMethodInheritance
+!! default Method Inheritance
+* More specific interfaces (or classes) always WIN over less specific ones:
+** Classes always WIN over interfaces. If a class overrides a default method, the class method will be the one used.
+** when an inherited instance method from a class overrides a default interface method:
+* to call the default implementation of the method, you can do it with the name of the interface followed by the keyword 'super':
+{{{
+public void processInParallel() {
+    Processable.super.processInParallel(); // only works with default methods
+}
+}}}
+* Classes can implement multiple interfaces. What happens when two interfaces have the same default method? 
+** It turns out that the result is a compiler error
+{{{
+interface Processable {
+    void processInSequence();
+    default void processInParallel() {
+    }
+}
+interface Parallelizable {
+    default void processInParallel() {
+    }
+}
+public class Task
+            implements Processable, Parallelizable {
+...
+}
+}}}
+/%
+
+/%
+
+
+
+/%
+/%
+
 
