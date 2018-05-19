@@ -1,4 +1,10 @@
 %%tabbedSection 
+%%tab-ObjectOriented
+tab content 1
+/%
+%%tab-Types
+
+%%tabbedSection 
 %%tab-classes
 {{{
 class Computer {
@@ -9,6 +15,9 @@ class Computer {
      }
 }
 }}}
+/%
+%%tab-abstract
+tab abstract 2
 /%
 %%tab-interfaces
 !!! interfaces
@@ -102,9 +111,6 @@ public class Task
 }}}
 /%/%/%/%/%
 
-%%tab-abstract
-tab abstract 2
-/%
 %%tab-innerClasses
 %%tabbedSection 
 %%tab-staticInner
@@ -235,14 +241,15 @@ final static int capacity = 120; // It does compile!
 /%
 /%
 /%
+%%tab-generics
+| generics   | [javaNotesGenerics]
+/%
 %%tab-enum
 tab enum 2
 /%
 /%
-
-
-------------------
-
+/%
+%%tab-Encapsulation
 %%tabbedSection 
 %%tab-accessModifiers
 ;keywording access modifiers:[java access modifiers|javaAccessModifiers.png]
@@ -277,6 +284,12 @@ public class Example {
 ** final is applied to a method, this cannot be overridden  by subclasses.
 ** when final is applied to a class, you cannot subclass it.
 /%
+
+/%
+/%
+%%tab-Functional
+
+%%tabbedSection 
 %%tab-immutable
 * Sets all of its properties through a constructor
 * Does not define setter methods
@@ -285,6 +298,17 @@ public class Example {
 * Protects access to any mutable state:
 ** For example, if it has a List member, either the reference cannot be accessible outside the object or a copy must be returned (the same applies if the object's content must change)
 /%
+%%tab-lambda
+| lambdas   | [javaNotesLambdas]
+/%
+/%
+/%
+/%
+
+------------------
+
+%%tabbedSection 
+
 %%tab-conventions
 %%tabbedSection 
 %%tab-methodNamingConventions
@@ -310,12 +334,8 @@ public class Example {
 /%
 
 
-%%tab-generics
-| generics   | [javaNotesGenerics]
-/%
-%%tab-lambda
-| lambdas   | [javaNotesLambdas]
-/%
+
+
 %%tab-bytecode
 ;invokedynamic:[infoQ article on invokedynamic|https://www.infoq.com/articles/Invokedynamic-Javas-secret-weapon]
 /%
