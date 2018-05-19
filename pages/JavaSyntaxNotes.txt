@@ -288,7 +288,6 @@ public class Example {
 /%
 /%
 %%tab-Functional
-
 %%tabbedSection 
 %%tab-immutable
 * Sets all of its properties through a constructor
@@ -302,10 +301,9 @@ public class Example {
 | lambdas   | [javaNotesLambdas]
 /%
 /%
-/%
-/%
 
-------------------
+/%
+%%tab-pragmatics
 
 %%tabbedSection 
 
@@ -349,8 +347,10 @@ public class Example {
 
 /%
 /%
-------------------
+/%
 
----------
+GGGG
+
+
 
 
