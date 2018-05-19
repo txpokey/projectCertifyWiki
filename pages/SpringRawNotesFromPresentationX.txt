@@ -1,305 +1,68 @@
-!!!Spring Cloud
-%%tab-SpringCloud
-
 %%tabbedSection 
-
-%%tab-overview
-* technology stack embedded in overall SpringIO universe
-* pattern : common problems needing solutions from tech stack
-** configuration management:
-*** distributed
-*** versioned
-*** centralized
-** service discovery
-** load balance
-** inter-service calls 
-** circuit breakers : prevent non-linear resource consumption, loss of control
-** routing
-* spring cloud netflix : spring adaptation and annotations of Netflix OSS
-
-/%
-%%tab-setup
-* spring-cloud-starter-parent (I think this is subsumed by any of the *-starter)
-* spring-cloud-starter-FOO : where FOO is some stack component in spring cloud landscape
-/%
-%%tab-configuration
-* cloud's distributed nature, and automation : driver for configuration as a service
-** e.g. hard to share filesystems, so property files suck 
-** environment variables have a hot swap, scaling, portability and consistency problem
-* needs analysis : dynamic reloading, client configs self-register, push/pull model like git(1)
-* solutions: 
-** Spring Cloud Bus : push changes
-** Spring Cloud Eureka : self-registration
-%%tabbedSection 
-%%tab-CloudConfigServer
-* could hoover from git-backed local file system
-** placed behind load balancer
-* spring-cloud-starter-config
-* decorate the spring application class (with main()):
-** @SpringBootApplication
-** @EnableConfigServer
-* EnvironmentRepository : git or file (native)
-** naming convention for property files: <sping.application.name>-<profile>.yml
-** directly supports spring.profiles.active 
-*** https:<server>:<port>/<spring.application.name>.<profile>
-*** server-side pattern matching rules give the URI used for GET
-*** without the <profile> then <spring.application.name>.(yml|properties) are included
-* spring.cloud.config.failFast=true // default == false 
-* config server logical variables over ride local matching properties
-** local ones are fallback candidates 
-/%
-%%tab-Client
-*  spring-cloud-starter == client
-* bootstrap.properties :
+%%tab-Object
+!! java.lang.Object 
 {{{
-spring.application.name: appName
-spring.cloud.config.uri: whereDoIGoURI
+protected Object clone() throws CloneNotSupportedException
+protected void finalize() throws Throwable
+public int hashCode()
+public boolean equals(Object obj)
+public String toString()
 }}}
-* Environment - multiple property sources 
-** Spring Cloud Config client adding another property source via the GET <uri>
-/%
-%%tab-Lab3
-[Lab3 instructions | https://github.com/kennyk65/Microservices-With-Spring-Student-Files/blob/master/LabInstructions/Lab%203.md]
-/%
-/%
-/%
-%%tab-Eureka
-* [netflix eureka | https://github.com/Netflix/eureka/wiki/Eureka-REST-operations]
-* service discovery : clients register themselves (ala JINI : multicast )
-** keep alive heartbeats or registration is scratched : "/health"
-** high available : multiple copies of the service are co-operating for consistency (like ZooKeeper)
-*** but also can support round the world Zones (ala my Nokia project)
-*** URI can be provided by config server
-%%tabbedSection 
-%%tab-EurekaServer
-* spring-cloud-starter-eureka-server
-* decorate the spring application class (with main()):
-** @SpringBootApplication
-** @EnableEurekaServer
-/%
-%%tab-EurekaAsClient
-* yml : e.g. - single instance config 
-** registerWithEureka: false
-** fetchRegistry: false
-** serviceUrl: <list of servers that are co-operating>
-/%
-%%tab-DiscoveryClient
-* spring-cloud-starter-eureka-server
-* decorate the spring application class (with main()):
-** @SpringBootApplication
-** @EnableDiscoveryClient
-* application.properties : for default fallbacks : could be serviced from config server
-** eureka.client.serviceUrl.defaultZone: <url>
-* actual client interface : DiscoveryClient::getInstances("STORES")
-** STORES == Eureka VIP
-/%
-%%tab-pragmatics
-* stateful, peer-to-peer for consistency and redundancy
-* both techstacking config server and eureka
-* Config First Bootstrap : 
-** spring.cloud.config.uri property in each app 
-** to find Eureka
-* Eureka First Bootstrap :  
-** spring.cloud.config.discovery: true
-** eureka.client.serviceUrl.defaultZone: <url>
-** client has two trips to obtain configuration
-/%
-%%tab-Lab
-* [Lab 4 | https://github.com/kennyk65/Microservices-With-Spring-Student-Files/blob/master/LabInstructions/Lab%204.md]
-/%
-/%
-/%
-%%tab-Ribbon
-* client side load balancer
-** what if server side load balancer was down? 
-* netflix oss : automatic eureka integation
-** cache & batching supported
-* multiple protocols supported
-* terminology : 
-** listOfservers : mapping: 'server pool' vs. service ID 
-*** Spring Cloud assumes Eureka if classpath
-*** filtered list : e.g. same zone is strategy opinion spring uses
-{{{
-    bobServiceName:
-      ribbon:
-        listOfServers: bob1.com, bob2.com ...
-}}}
+! public int hashCode()
+* Idempotence
+* object equality : 
+** equals(Object) means hashCode() equality
+** else hashCode() must be unique per Object
 
-** ping : heartbeat (from Eureka)
-*** consistency has a latency
-** ZoneAwareLoadBalancer : route calls into filtered list
-*** Spring Cloud default 
-** ZoneAvoidanceRule : default rule on making calls at all
-* client : maven : spring-cloud-starter-ribbon
-* [Lab 5 | https://github.com/kennyk65/Microservices-With-Spring-Student-Files/blob/master/LabInstructions/Lab%205.md]
-/%
-%%tab-Feign
-* declarative RESTful client, easier to use than RestTemplate
-** // assuming /foo/{0} in the uri string 
-*** {{{new RestTemplate()).getForObject(instance.getUri(),Sku.class, 12345 }}} 
-* spring-cloud-starter-feign
-* decorate the spring application class (with main()):
-** @SpringBootApplication
-** @EnableFeignClients
-* decorate an interface, similar to JPA:
-** @FeignClient(url=<url>)
-* use SpringMVC annotations to mark up the service methods in the interface. 
-** can replace url with Eureka client id
-*** @FeignClient(<serviceNameString>)
-* @Autowire client stub reference into consuming service
-* no unit testing, since no code to test. but integration testing.
-* Ribbon : automatically load balancing 
-* [Lab 6 | https://github.com/kennyk65/Microservices-With-Spring-Student-Files/blob/master/LabInstructions/Lab%206.md]
-/%
-
-%%tab-Hystrix
-* circuit breakers : hystrix 
-** hystrix dashboard and Turbine
-** cascade failure prevention : since microservices vulnerablity
-* pragmatics: 
-** default : 20 failures in 5 sec -> open circuit 
-** fallback employed, including chaining fallbacks
-** self-annealing : 5 sec default to close the circuit. 
-** what failures count : exceptions or timeouts 
-* spring-cloud-starter-hystrix
-* decorate the spring application class (with main()):
-** @SpringBootApplication
-** @EnableHystrix
-* writing the fallback : 
-{{{
-@HystrixCommand(fallbackMethod="defaultMethodName")
-Object getStores(...) {}
-Object defaultMethodName(...) {}
-}}}
-* tuning parameters are annotation args
-{{{
-@HystrixCommand(fallbackMethod="defaultMethodName", 
-    commandProperties = {
-        @HystrixProperty(name="foo", value="bar")
-    }
-)
-...
-}}}
-* synchronous (default) 
-* asynchronous
-** like @Async : geta Future to deal with
-
-{{{
-    @HystrixCommand(....)
-    Future<Store> getStores(...) { 
-        return new AsyncResult<Store>() {
-            @Override
-            public Store invoke() {}
-        }
-    }
-}}}
-* reactive : observer pattern : get a listener & thread!
-** (JavaRX Observable, java.lang.Observable is deprecated in Java9)
-{{{
-    @HystrixCommand(....)
-    Observable<Store> getStores(...) { 
-        return new ObservableResult<Store>() {
-            @Override
-            public Store invoke() {}
-        }
-    }
-}}}
+! public boolean equals(Object obj)
+* Idempotence
+* For any non-null reference value x, y, z:
+** x.equals(null) should return false.
+** reflexive: true == x.equals(x)
+** symmetric: true == (( x.equals(y) ) && ( y.equals(x) ))
+** transitive: if (( x.equals(y) ) && ( y.equals(z) )) then ( x.equals(z) )
 
 /%
-%%tab-cloudBus
-* misnamed : service bus for only pushing config 
-* solution : "push" dynamic configuration updates w/o bouncing machines or polling
-** broadcast to clients : pub-sub : AMQP (RabbitMQ)
-* spring-cloud-starter-bus-amqp 
-** cloud bus self-identifies client-server relationships by inspecting Spring Config annotations
-** POST /bus/refresh to config server to trigger "push"
-** Spring Boot only refreshes beans marked with one of:
-*** @ConfigurationProperties(prefix="eurekaName") 
-**** shorthand to make entire class as if each field were @Value 
-**** but at least need setters for the beans. UGH
-*** @RefreshScope : hot swapping beans : Spring Cloud : lazy via Proxy for the bean
-* [Lab 8 | https://github.com/kennyk65/Microservices-With-Spring-Student-Files/blob/master/LabInstructions/Lab%208.md]
+%%tab-OverloadingOverriding
+!! Overloading & Overriding
+
+* Overriding Rules : 
+** The access modifier must be the same or more accessible
+** The return type must be either the same or a subclass
+** The name must be the same
+** The argument list types must be the same
+** The same exceptions or their subclasses are allowed to be thrown
 
 /%
 
-%%tab-APIgateway
-%%tabbedSection 
-%%tab-purpose
-* in SOA, this would be the service bus per se. 
-* Enterprise Integration Patterns: routing, caching, protocol transform
-** abstraction (hiding) services on server side: only publishing a custom API 
-** SSO (?federation)
-
-/%
-%%tab-zuul
-* netflix again
-* reverse proxy : routing and load balance
-** spring-cloud-starter-zuul 
-** @EnableZuulProxy
-* automatically activates & engages Ribbon, Hystrix capabilities for calls into the gateway
-* routing black and white listing : 
-** e.g. zuul.ignored-saervices: * 
-** zuul.prefix:  /api
-
-/%
-%%tab-caching
-* interfacing: 
-** @EnableCacheable
-** @Cacheable(value="inventoryServiceBeingCached", key="#sku")
-*** guess : using ASPECTS to check cache for hit, avoid calling actual method.
-* pragmatics : 
-** inventoryService should be able to decide (HTTP: expire and etags)
+%%tab-Inheritance
+!! Inheritance
+* IS-A relationship : keyword '''extends''' is used to specify this relationship
+* An attribute or method is inherited with the same visibility level as the one defined in the superclass. 
+** However, in the case of methods, you can change them to be more visible, but you cannot make them less visible.
+*  Because of encapsulation, attributes are supposed to be hidden, but with methods, if a subclass doesn't have a method of the superclass, the subclass cannot be used wherever the superclass is used. This is called the ''Liskov substitution principle'', which is important in polymorphism, and we'll review after talking about overridden and overloaded methods
+* Rules - for a subclass:
+** Inherited attributes can be used directly, just like any other.
+** An attribute can be declared in the subclass with the same name as the one in the superclass, thus hiding it.
+** New attributes that are not in the superclass can be declared in the subclass.
+** Inherited methods can be directly used as they are.
+** A new instance method can be declared in the subclass that has the same signature as the one in the superclass, thus overriding it.
+** A new static method can be declared in the subclass that has the same signature as the one in the superclass, thus hiding it.
+** New methods that are not in the superclass can be declared in the subclass.
+** A constructor can be declared in the subclass that invokes the constructor of the superclass, either implicitly or by using the keyword '''super'''.
 /%
 
-%%tab-eTags
-* "shallow" : HTTP header: hashcode unique to service method vs. client vs. server (ordered triples)
-* "if-none-match" allows etag hashcode as if a token :
-** (match: HTTP 304 - not modified) else (HTTP: 200)
-* serverside : @Bean Filter <-> return new ShallowEtagHeaderFilter() ;
-* clientside : RestTemplate( new HttpComponentsClientRequestFactory(cachingClient))
-** could start RestTemplate with a serviceId instead of a URL 
-/%
+%%tab-Polymorphism
+!! Polymorphism
 
-%%tab-resourceExpansion
-* gateway will walk HATEOAS links : need mapping to JSON backing the links 
-* Traverson : traverse the links 
-** ...hateoas.Resource : wrapper for domain objects
-** extends Resources<Resource<T>> { ... }
-* Spring Data REST projections will inline instead of HATEOAS links. 
-** @Projection(...) <-> /teams/1?projection=inlinePlayers 
-/%
-
-%%tab-protocolConvert
-* no automatic solutions in this Netflix stack
-* options : 
-** JMS
-** AMQP
-** SOAP 
-* Spring Integration: supports Enterprise Integration Patterns
-** in-memory messaging system, with predefined mappings 
-*** gateway (in or out) via message channels 
-*** messages and payloads architecture model 
+* This is called , a fancy name for overriding.
+* Overriding:
+** aka ''dynamic polymorphism'' because the type of the object is decided at RUN time.
+** aka ''virtual method invocation'' : JVM decides at runtime which method to call based on the type of the object assigned, not the variable's reference type
+* overloading: 
+** aka ''static polymorphism'' because it's resolved at COMPILE time.
 
 /%
 /%
-/%
--=-=-
-%%tabbedSection 
-%%tab-configuration
-tab content 1
-/%
-%%tab-tabTitle2
-tab content 2
-/%
-/%
 
-=-=-=-
-%%tabbedSection 
-%%tab-tabTitle1
-tab content 1
-/%
-%%tab-tabTitle2
-tab content 2
-/%
-/%
 

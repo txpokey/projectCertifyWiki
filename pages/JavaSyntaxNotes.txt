@@ -16,8 +16,24 @@ class Computer {
 }
 }}}
 /%
-%%tab-abstract
-tab abstract 2
+%%tab-Abstract
+!! Abstract classes and methods
+
+* common abstraction of type relationships to share behavior
+* Abstract classes CANNOT be instantiated, only subclassed. They are declared with the abstract keyword:
+{{{
+abstract class AClass { }
+}}}
+* Abstract methods are declared WITHOUT an implementation (body), like this:
+{{{
+abstract void AMethod();
+}}}
+* Rules: 
+** abstract keyword can only be applied to classes or non-static methods.
+** An abstract class doesn't need to declare abstract methods to be declared abstract.
+** If a class includes abstract methods, then the class itself must be declared abstract.
+** If the subclass of an abstract class doesn't provide an implementation for all abstract methods, the subclass must also be declared abstract.
+** Methods of an interface are considered abstract, so an abstract class that implements an interface can implement some or none of the interface methods.
 /%
 %%tab-interfaces
 !!! interfaces
