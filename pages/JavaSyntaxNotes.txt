@@ -1,5 +1,161 @@
 %%tabbedSection 
-%%tab-core
+%%tab-classes
+{{{
+class Computer {
+     abstract class Processor { }
+     interface Pluggable { }
+     enum PORTS {
+         USB2, USB3, ESATA, HDMI
+     }
+}
+}}}
+/%
+%%tab-interfaces
+tab interfaces 2
+/%
+%%tab-abstract
+tab abstract 2
+/%
+%%tab-innerClasses
+%%tabbedSection 
+%%tab-staticInner
+{{{
+public class Computer {
+    private static class Component { }
+    protected static class MotherBoard { }
+    static class Slot { }
+    private static String serialNumber = "1234X";
+    public static class Mouse {
+        void printSN() {
+            System.out.println("MOUSE-" + serialNumber);
+	}
+    }
+}
+}}}
+/%
+%%tab-nonStatic
+* Non-static inner classes are just called inner classes.
+{{{
+class Computer {
+     class HardDrive {
+     }
+}
+}}}
+* NON-Static inner classes are accessed through an instance of their enclosing class
+{{{
+Computer c = new Computer();
+Computer.HardDrive hd = c.new HardDrive();
+}}}
+* Another way to get an instance of an inner class is to use a method of the enclosing class to create it, avoiding that weird syntax.
+{{{
+public class Computer {
+     class HardDrive { }
+     public HardDrive getHardDrive() {
+         return new HardDrive();
+     }
+}
+}}}
+
+/%
+%%tab-local
+* Local classes can only be used inside the method or block that defines them. 
+* The local class has to be used BELOW its definition. Otherwise, the compiler won't be able to find it.
+* local inner class is not a member of a class, it CANNOT be declared with an access level
+*  local class can be declared as abstract or final (but not at the same time).
+* they cannot declare static members (only static final attributes), just like inner classes.
+* it can access the variables and parameters of the method ONLY if they are declared final or are effectively final.
+* If the class is declared in a static method, static rules also apply, meaning that the local class only has access to the static
+members of the enclosing class. 
+{{{
+void process() {
+         class Core { }
+         Core core = new Core();
+}
+}}}
+
+/%
+%%tab-anonymous
+* The new operator is followed by the name of an interface or a class and the arguments to a constructor (or empty parentheses if it's an interface)
+{{{Computer comp = new Computer() {
+     void process() {
+         // Here goes the definition
+     }
+};
+}}}
+* anonymous class can also be used in a method call.
+{{{
+class Program {
+     void start(Computer c) {
+         // Definition goes here
+     }
+     public static void main(String args[]) {
+         Program program = new Program();
+         program.start(new Computer() {
+             void process() { /** Redefinition goes here */ }
+         });
+     }
+}
+}}}
+* an anonymous class expression doesn’t declare a new class. It either IMPLEMENTS an existing interface or EXTENDS an existing class
+* anonymous classes can’t have CONSTRUCTORS. If you want to run some initializing code, you have to do it with an initializer block.
+* Because anonymous classes are a type of local classes, they have the same rules:
+** They can access the members of their enclosing class
+** They cannot declare static members (only if they are final static variables)
+** They can only access local variables (variables or parameters defined in a method) if they are final or effectively final.
+* When you use an anonymous class (a subclass object), you're using a superclass reference. With this reference, you can ONLY use the attributes and methods declared in that superclass.
+/%
+%%tab-shadowing
+!! Shadowing
+* what happens when a member of the inner class has the same name of a member of the enclosing class.
+{{{
+class Computer {
+	 private String serialNumber = "1234XXX";
+	 class HardDrive {
+		 private String serialNumber = "1234DDD";
+		 void printSN(String serialNumber) {
+		
+System.out.println("SN: " + serialNumber);
+		 }
+	}
+}
+}}}
+* parameter serialNumber shadows the instance variable serialNumber of HardDrive that in turn, shadows the serialNumber of Computer.
+* So, if we use this inside an inner class, it will refer to the inner class itself.
+* If we need to reference the enclosing class, inside the inner class we can also use this , but in this way NameOfTheEnclosingClass.this : 
+{{{
+this ."Computer SN: " + Computer.this.serialNumber
+}}}
+/%
+%%tab-innerEnum
+tab enum 2
+/%
+%%tab-rules
+* by being a member of a class: 
+** the static inner class have access to the other members of the enclosing class, but only if they are STATIC.
+** the non-static, inner class has access to the other members of the enclosing class, but this time, it DOESN'T matter if they are static or not.
+* if we use 'this' inside an inner class, it will refer to the inner class itself.
+* If we need to reference the enclosing class, inside the inner class we can also use 'this' , but in this way NameOfTheEnclosingClass.
+{{{
+this ."Computer SN: " + Computer.this.serialNumber
+}}}
+* But inner classes CANNOT contain static members, unless they're final
+{{{
+final static int capacity = 120; // It does compile!
+}}}
+* If the local class is declared inside a method, it can access the variables and parameters of the method ONLY if they are declared final or are effectively final. Effectively final is only concerned with references, not objects or their content. If you’re still not sure about a declaration being effectively final, try adding the final modifier to it.
+/%
+/%
+/%
+%%tab-enum
+tab enum 2
+/%
+/%
+
+
+------------------
+
+%%tabbedSection 
+%%tab-accessModifiers
 ;keywording access modifiers:[java access modifiers|javaAccessModifiers.png]
 ;compilation vs semantic rules:[java access modifiers|javaAccessRulesVsModifiers.png]
 /%
@@ -27,10 +183,7 @@
 [oracle page on autoboxing|https://docs.oracle.com/javase/tutorial/java/data/autoboxing.html]
 /%
 
-%%tab-classes
-* [javaSxNotesOnInterfaces]
-* [javaSxNotesOnInnerTypesAlaBookEH]
-/%
+
 %%tab-generics
 | generics   | [javaNotesGenerics]
 /%
@@ -50,4 +203,8 @@
 
 /%
 /%
+------------------
+
+---------
+
 

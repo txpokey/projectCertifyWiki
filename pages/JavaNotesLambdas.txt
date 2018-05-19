@@ -16,18 +16,10 @@
 * method reference syntax ("::" terminal) : 
 ** {{{ Integer::compare }}} : same as a lambda expression for the reference impl of compare()
 
-
 /%
-%%tab-functionalInterfaces
-!! as functional interfacing
-* lambdas are assignable to target type which are functional: 
-** interfaces having only one abstract, non-default method
-** there are a set of rules for inheritance and shadowing vs. functional interfaces valid for lambda target types
-* compiler infers the target type, and from there the functional method signature. Then the compiler plays match-up, so the lambda expression can be assigned to the target type. 
-* in Java, you can't always program in a purely functional style (i.e. without any side effect), only in a functional-style.
+%%tab-LambdaUseCases
 
-
-!! use case scenarios
+!! Lambda use case scenarios
 # A variable declaration
 # An assignment
 # A return statement
@@ -35,6 +27,15 @@
 # Method or constructor arguments
 # A ternary conditional expression
 # A cast expression
+/%
+%%tab-functionalInterfaces
+!! Lambda as functional interfacing
+* lambdas are assignable to target type which are functional: 
+** interfaces having only one abstract, non-default method
+** there are a set of rules for inheritance and shadowing vs. functional interfaces valid for lambda target types
+* compiler infers the target type, and from there the functional method signature. Then the compiler plays match-up, so the lambda expression can be assigned to the target type. 
+* in Java, you can't always program in a purely functional style (i.e. without any side effect), only in a functional-style.
+
 
 /%
 %%tab-anonClasses

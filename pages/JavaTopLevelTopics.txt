@@ -1,20 +1,25 @@
 * [Scripting Java (10)|https://docs.oracle.com/javase/10/scripting/using-java-scripts.htm#JSJSG114]
 
 %%tabbedSection 
-
-%%tab-essentialConcepts
-| collections   | [collections|javaNotesCollections]\\[streams operations on collections|javaNotesCollectionsOperationsOn]
-| time   | [immutable date/time|javaNotesImmutableDateAndTime]\\[parsing into immutable date/time|javaNotesImmutableDateAndTimeParsing]
-| functional   | [functional programming|javaNotesFunctionalProgramming]
-| i/o | [java i/o fundamentals|javaNotesIoFundamentals]\\[java NIO 1&2 |javaNotesNewIoFundamentals]\\[serialization|javaNotesOnObjectSerialization]
-| lambdas   | [lambdas | javaNotesLambdas]\\[built-in lambdas|javaNotesLambdasBuiltIn]\\[method references|javaNotesLambdasAsMethodReferences]
-| streams   | [streams|javaNotesStreams]\\[streams operations on collections|javaNotesCollectionsOperationsOn]
-| threading   | [threading|javaNotesThreading]\\[concurrency|javaNotesThreadingConcurrency]
-| exceptions   | [exceptions|javaNotesExceptions]
-/%
 %%tab-syntax
 | syntax   | [Syntax Notes|javaSyntaxNotes]
-| compilation warnings   | [Suppress Warnings|javaAnnotationsSupressWarnings]
+| functional   | [functional programming|javaNotesFunctionalProgramming]
+| lambdas   | [lambdas | javaNotesLambdas]\\[built-in lambdas|javaNotesLambdasBuiltIn]\\[method references|javaNotesLambdasAsMethodReferences]
 |try catch blocks | [try-catch-resource-finally|JavaNotesExceptions]
 /%
+%%tab-pragmatics
+| compilation warnings   | [Suppress Warnings|javaAnnotationsSupressWarnings]
+/%
+%%tab-corePackages
+| collections   | [collections|javaNotesCollections]\\[streams operations on collections|javaNotesCollectionsOperationsOn]
+| exceptions   | [exceptions|javaNotesExceptions]
+
+| i/o | [java i/o fundamentals|javaNotesIoFundamentals]\\[java NIO 1&2 |javaNotesNewIoFundamentals]\\[serialization|javaNotesOnObjectSerialization]
+
+| streams   | [streams|javaNotesStreams]\\[streams operations on collections|javaNotesCollectionsOperationsOn]
+| threading   | [threading|javaNotesThreading]\\[concurrency|javaNotesThreadingConcurrency]
+| time   | [immutable date/time|javaNotesImmutableDateAndTime]\\[parsing into immutable date/time|javaNotesImmutableDateAndTimeParsing]
+
+/%
+
 /%
