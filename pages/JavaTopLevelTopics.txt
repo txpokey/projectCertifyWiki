@@ -3,15 +3,18 @@
 %%tabbedSection 
 %%tab-syntax
 | syntax   | [Syntax Notes|javaSyntaxNotes]
+| Fluent Programming   | [ method chaining (wikipedia) | https://en.wikipedia.org/wiki/Fluent_interface ]
 | functional   | [functional programming|javaNotesFunctionalProgramming]
 | lambdas   | [lambdas | javaNotesLambdas]\\[built-in lambdas|javaNotesLambdasBuiltIn]\\[method references|javaNotesLambdasAsMethodReferences]
 |try catch blocks | [try-catch-resource-finally|JavaNotesExceptions]
 /%
 %%tab-pragmatics
 | compilation warnings   | [Suppress Warnings|javaAnnotationsSupressWarnings]
+| Null Object Pattern   | [Optional |JavaNotesNullObjectPattern]
+
 /%
 %%tab-corePackages
-| collections   | [collections|javaNotesCollections]\\[streams operations on collections|javaNotesCollectionsOperationsOn]
+| collections   | [collections|javaNotesCollections]\\[streams operations on collections|javaNotesCollectionsOperationsOn]\\[data filtering on Collections|javaNotesCollectionsDataFilteringOperations ]
 | exceptions   | [exceptions|javaNotesExceptions]
 
 | i/o | [java i/o fundamentals|javaNotesIoFundamentals]\\[java NIO 1&2 |javaNotesNewIoFundamentals]\\[serialization|javaNotesOnObjectSerialization]

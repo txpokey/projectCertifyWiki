@@ -34,7 +34,9 @@ tab content 2
 %%tab-patterns
 
 ||what||description
-| singleton   | [javaPatternsSingleton]
+| Fluent Programming   | [ Fluent (wikipedia) | https://en.wikipedia.org/wiki/Fluent_interface ]
+| singleton   | [singleton | javaPatternsSingleton]
+| Null Object Pattern   | [Optional |JavaNotesNullObjectPattern]
 
 
 /%

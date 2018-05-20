@@ -1,6 +1,35 @@
-@FunctionInterface enforces functional interface rules, but is not necessary to the rules, per se. Get compilation fail if not functional
+%%tabbedSection 
+%%tab-FunctionalInterfaces
+; Single Abstract Method : A functional interface is any interface that has exactly ONE ABSTRACT method.
+* ''default'' methods do not count
+* java.lang.Object methods do not count
+* @FunctionalInterface : a validator : a compile-time error when the interface you have annotated is not a valid functional interface.
+** examples :
+{{{
+java.lang.Runnable
+java.util.Comparator
+java.util.concurrent.Callable
+java.awt.event.ActionListener
+}}}
+* edge case :
+** In this case, the method is the same, so it's taken as one method. The class that implements B will have to implement the method that can legally override all the abstract methods:
+{{{
+@FunctionalInterface
+interface A { 
+    void method(List<Double> l);
+} 
+@FunctionalInterface
+interface B extends A { 
+    void method(List l);
+} 
+B b = new B() { 
 
-functional interfaces must have one and only one abstract method. Default or static methods are not abstract. 
-
-overriding Object methods do not count against the one abstract method rule. 
-
+    @Override
+    // ''raw'' List can override A.method and B.method
+    public void method(List l) { 
+        log.debug("list size:> " + l.size());
+    }
+};
+}}}
+/%
+/%

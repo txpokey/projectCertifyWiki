@@ -1,41 +1,53 @@
+!!! Assertions
 %%tabbedSection 
-%%tab-enum
-* An enum is an aggregation type that represents a FIXED values
-* enum type CANNOT extend from a class because all enums extend from java.lang.Enum. 
+%%tab-AssertionError
+%%prettify 
 {{{
-public enum Volume {
-    HIGH, MEDIUM, LOW // // each name is of course case sensitive
-}
-...
-Volume level = Volume.LOW;
-Volume low   = Volume.valueOf("LOW"); 
-assert low == level ;
-assert 0 == Volume.HIGH.ordinal() ;
-assert "HIGH".equals(Volume.HIGH.name());
-assert Volume.LOW instanceof Enum ;
-assert Volume.LOW instanceof Volume ;
-...
-switch(level) {
-    // Notice that the only the name of the enum is used,
-    // in fact, Volume.HIGH for example, won't compile
-    case HIGH: ...
-    case MEDIUM: ...
-    case LOW: ...
-}
-public enum VolumeValued {
-    HIGH(100), MEDIUM(50), LOW(20);
-    private int value;
+assert booleanExpressionWithOutErrorMessage ;
 
-    private VolumeValued(int value) {
-        this.value = value;
-    }
-    public int getValue() {
-        return value;
-    }
+// Which is equivalent to:
+
+if(! booleanExpressionWithOutErrorMessage) {
+     throw new AssertionError();
 }
 }}}
 /%
-%%tab-tabTitle2
-tab content 2
+%%prettify 
+{{{
+assert booleanExpressionWithErrorMessage: "Message about the error";
+
+// Which is equivalent to:
+
+if(! booleanExpressionWithErrorMessage) {
+     throw new AssertionError("Message about the error");
+}
+}}}
+/%
+/%
+%%tab-enableAsserts
+
+%%prettify 
+{{{
+java –ea TestAssertion // enable for TestAssertion program
+java –ea TestAssertion Hi
+java –ea:ClassName MainClass
+java –ea:com.example MainClass
+java –ea:... MainClass // anonymous package
+java –esa MainClass // System assertions
+java –da MainClass // disable asserts for MainClass program
+java –ea -da:ClassOne MainClass // enable all but ClassOne
+}}}
+/%
+/%
+
+
+
+
+
+
+
+
+
+
 /%
 /%

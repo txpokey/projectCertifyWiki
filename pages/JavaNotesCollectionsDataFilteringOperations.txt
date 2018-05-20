@@ -1,0 +1,65 @@
+!!! Data Search : Finding and Matching
+%%tabbedSection 
+%%tab-overviewDataSearch
+* Methods starting with ''find'' : return ''Optional''
+* method ending with Match: take a ''Predicate'' and return ''boolean''
+/%
+%%tab-find*()
+!! findAny() and findFirst()
+* they return the first element they find in a stream. Optional.empty() otherwise
+%%prettify 
+{{{
+Optional<T> findAny();
+Optional<T> findFirst();
+}}}
+/%
+
+/%
+%%tab-*match()
+!! anyMatch(), allMatch(), and noneMatch()
+%%prettify 
+{{{
+boolean allMatch(Predicate<? super T> predicate)
+boolean anyMatch(Predicate<? super T> predicate)
+boolean noneMatch(Predicate<? super T> predicate)
+}}}
+* stream is empty, BOTH ''allMatch()'' AND ''noneMatch()'' methods return ''TRUE''
+* ''noneMatch()'' is the opposite of ''allMatch()'', it returns true if NONE of the elements in the stream match
+/%
+
+/%
+%%tab-ShortCircuiting
+!! Short-circuiting
+* like && and || , data filtering methods will stop running the stream once the Predicate outcome is already known.
+* Just remember:
+** With some operations, the whole stream doesn't need to be processed.
+** Stream operations are not performed sequentially.
+/%
+/%
+
+
+!!!Iterating and Filtering Collections
+%%tabbedSection 
+%%tab-Iterating
+* forEach defined on Iterable, Steam and Map interface:
+%%prettify 
+{{{
+default void forEach(Consumer<? super T> action) ;
+default void forEach(BiConsumer<? super K,? super V> action); // Map
+}}}
+/%
+
+
+/%
+%%tab-Filtering
+%%prettify 
+{{{
+default boolean removeIf(Predicate<? super E> filter); // Collection
+Stream<T> filter(Predicate<? super T> predicate);
+Stream<T> distinct();
+}}}
+/%
+
+
+/%
+/%

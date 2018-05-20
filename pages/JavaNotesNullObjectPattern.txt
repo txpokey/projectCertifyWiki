@@ -1,0 +1,50 @@
+%%tabbedSection 
+%%tab-Optional
+!! Optional
+* problem :  [ Fluent Programming  | https://en.wikipedia.org/wiki/Fluent_interface ], esp. with ''streams'', has exacerbated the return of ''null''
+%%prettify 
+{{{
+String summary = 
+  book.getChapter(10)
+          .getSummary().toUpperCase();
+}}}
+/%
+
+* solution : 
+%%prettify 
+{{{
+java.util.Optional<T>
+}}}
+/%
+
+/%
+%%tab-OptionalAPI
+!! Optional API
+%%prettify 
+{{{
+Optional<String> summary = Optional.empty();
+Optional<String> summary = Optional.of("A summary"); // make sure NOT null though
+Optional<String> summary = Optional.ofNullable("A summary");
+assert summary.isPresent() ;
+summary.ifPresent(System.out::println); // void
+}}}
+/%
+
+* when the Optional doesn't contain a value: 3 ways
+%%prettify 
+{{{
+String summaryOrDefault_1 = summary.orElse("Default summary");
+String summaryOrDefault_2 = summary.orElseGet( () -> "Default summary" );
+String summaryOrException = summary.orElseThrow( () -> new Exception() );
+}}}
+* there are versions of the Optional class to work with primitives (not as useful)
+* streams :
+%%prettify 
+{{{
+String summaryStr = summary.filter(s -> s.length() > 10).orElse("Short summary");
+int summaryLength = summary.map(s -> s.length()).orElse("Short summary");
+}}}
+/%
+/%
+/%
+/%

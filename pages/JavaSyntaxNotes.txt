@@ -413,6 +413,11 @@ public class Example {
 /%
 %%tab-Functional
 %%tabbedSection 
+
+%%tab-functionalInterfaces
+* [ functional interfaces  |javaNotesFunctionalProgramming]
+* [ lambda expressions  | javaNotesLambdas]
+/%
 %%tab-immutable
 * Sets all of its properties through a constructor
 * Does not define setter methods
@@ -420,9 +425,6 @@ public class Example {
 * Has a class declared final to prevent inheritance
 * Protects access to any mutable state:
 ** For example, if it has a List member, either the reference cannot be accessible outside the object or a copy must be returned (the same applies if the object's content must change)
-/%
-%%tab-lambda
-| lambdas   | [javaNotesLambdas]
 /%
 /%
 
