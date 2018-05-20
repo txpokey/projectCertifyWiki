@@ -1,5 +1,3 @@
-
-
 %%tabbedSection 
 %%tab-ObjectOriented
 %%tabbedSection 
@@ -42,9 +40,11 @@ public String toString()
 %%tab-Inheritance
 !! Inheritance
 * IS-A relationship : keyword '''extends''' is used to specify this relationship
-* An attribute or method is inherited with the same visibility level as the one defined in the superclass. 
+*  Because of encapsulation, attributes are supposed to be hidden
+** An attribute or method is inherited with the same visibility level as the one defined in the superclass. 
 ** However, in the case of methods, you can change them to be more visible, but you cannot make them less visible.
-*  Because of encapsulation, attributes are supposed to be hidden, but with methods, if a subclass doesn't have a method of the superclass, the subclass cannot be used wherever the superclass is used. This is called the ''Liskov substitution principle'', which is important in polymorphism, and we'll review after talking about overridden and overloaded methods
+* ''Liskov substitution principle'' with methods: 
+** if a subclass doesn't have a method of the superclass, the subclass cannot be used wherever the superclass is used. 
 * Rules - for a subclass:
 ** Inherited attributes can be used directly, just like any other.
 ** An attribute can be declared in the subclass with the same name as the one in the superclass, thus hiding it.
@@ -58,13 +58,20 @@ public String toString()
 
 %%tab-Polymorphism
 !! Polymorphism
+* generally: a single interface to entities of different types: 
+** ''Ad hoc polymorphism (overriding)'': function has different implementations depending on specified types and combinations.
+** Parametric polymorphism: generics in object-oriented programming
+** Subtype (aka inclusion polymorphism): different classes related by some common superclass
+!! Polymorphism implementation : 
+* method invocation 
+||static||dynamic
+|at compile time| at runtime
+| ''static dispatch'' | ''dynamic dispatch''
+| ''static polymorphism''  | ''dynamic polymorphism''
+| ''ad hoc'' polymorphism | subtype polymorphism
+| parametric polymorphism  | 
 
-* This is called , a fancy name for overriding.
-* Overriding:
-** aka ''dynamic polymorphism'' because the type of the object is decided at RUN time.
-** aka ''virtual method invocation'' : JVM decides at runtime which method to call based on the type of the object assigned, not the variable's reference type
-* overloading: 
-** aka ''static polymorphism'' because it's resolved at COMPILE time.
+* ''virtual method invocation'' : JVM decides at runtime which method to call based on the type of the object assigned, not the variable's reference type
 
 /%
 /%
@@ -328,8 +335,42 @@ final static int capacity = 120; // It does compile!
 | generics   | [javaNotesGenerics]
 /%
 %%tab-enum
-tab enum 2
+* An enum is an aggregation type that represents a FIXED values
+* enum type CANNOT extend from a class because all enums extend from java.lang.Enum. 
+{{{
+public enum Volume {
+    HIGH, MEDIUM, LOW // // each name is of course case sensitive
+}
+...
+Volume level = Volume.LOW;
+Volume low   = Volume.valueOf("LOW"); 
+assert low == level ;
+assert 0 == Volume.HIGH.ordinal() ;
+assert "HIGH".equals(Volume.HIGH.name());
+assert Volume.LOW instanceof Enum ;
+assert Volume.LOW instanceof Volume ;
+...
+switch(level) {
+    // Notice that the only the name of the enum is used,
+    // in fact, Volume.HIGH for example, won't compile
+    case HIGH: ...
+    case MEDIUM: ...
+    case LOW: ...
+}
+public enum VolumeValued {
+    HIGH(100), MEDIUM(50), LOW(20);
+    private int value;
+
+    private VolumeValued(int value) {
+        this.value = value;
+    }
+    public int getValue() {
+        return value;
+    }
+}
+}}}
 /%
+
 /%
 /%
 %%tab-Encapsulation

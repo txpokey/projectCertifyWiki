@@ -1,68 +1,41 @@
 %%tabbedSection 
-%%tab-Object
-!! java.lang.Object 
+%%tab-enum
+* An enum is an aggregation type that represents a FIXED values
+* enum type CANNOT extend from a class because all enums extend from java.lang.Enum. 
 {{{
-protected Object clone() throws CloneNotSupportedException
-protected void finalize() throws Throwable
-public int hashCode()
-public boolean equals(Object obj)
-public String toString()
+public enum Volume {
+    HIGH, MEDIUM, LOW // // each name is of course case sensitive
+}
+...
+Volume level = Volume.LOW;
+Volume low   = Volume.valueOf("LOW"); 
+assert low == level ;
+assert 0 == Volume.HIGH.ordinal() ;
+assert "HIGH".equals(Volume.HIGH.name());
+assert Volume.LOW instanceof Enum ;
+assert Volume.LOW instanceof Volume ;
+...
+switch(level) {
+    // Notice that the only the name of the enum is used,
+    // in fact, Volume.HIGH for example, won't compile
+    case HIGH: ...
+    case MEDIUM: ...
+    case LOW: ...
+}
+public enum VolumeValued {
+    HIGH(100), MEDIUM(50), LOW(20);
+    private int value;
+
+    private VolumeValued(int value) {
+        this.value = value;
+    }
+    public int getValue() {
+        return value;
+    }
+}
 }}}
-! public int hashCode()
-* Idempotence
-* object equality : 
-** equals(Object) means hashCode() equality
-** else hashCode() must be unique per Object
-
-! public boolean equals(Object obj)
-* Idempotence
-* For any non-null reference value x, y, z:
-** x.equals(null) should return false.
-** reflexive: true == x.equals(x)
-** symmetric: true == (( x.equals(y) ) && ( y.equals(x) ))
-** transitive: if (( x.equals(y) ) && ( y.equals(z) )) then ( x.equals(z) )
-
 /%
-%%tab-OverloadingOverriding
-!! Overloading & Overriding
-
-* Overriding Rules : 
-** The access modifier must be the same or more accessible
-** The return type must be either the same or a subclass
-** The name must be the same
-** The argument list types must be the same
-** The same exceptions or their subclasses are allowed to be thrown
-
-/%
-
-%%tab-Inheritance
-!! Inheritance
-* IS-A relationship : keyword '''extends''' is used to specify this relationship
-* An attribute or method is inherited with the same visibility level as the one defined in the superclass. 
-** However, in the case of methods, you can change them to be more visible, but you cannot make them less visible.
-*  Because of encapsulation, attributes are supposed to be hidden, but with methods, if a subclass doesn't have a method of the superclass, the subclass cannot be used wherever the superclass is used. This is called the ''Liskov substitution principle'', which is important in polymorphism, and we'll review after talking about overridden and overloaded methods
-* Rules - for a subclass:
-** Inherited attributes can be used directly, just like any other.
-** An attribute can be declared in the subclass with the same name as the one in the superclass, thus hiding it.
-** New attributes that are not in the superclass can be declared in the subclass.
-** Inherited methods can be directly used as they are.
-** A new instance method can be declared in the subclass that has the same signature as the one in the superclass, thus overriding it.
-** A new static method can be declared in the subclass that has the same signature as the one in the superclass, thus hiding it.
-** New methods that are not in the superclass can be declared in the subclass.
-** A constructor can be declared in the subclass that invokes the constructor of the superclass, either implicitly or by using the keyword '''super'''.
-/%
-
-%%tab-Polymorphism
-!! Polymorphism
-
-* This is called , a fancy name for overriding.
-* Overriding:
-** aka ''dynamic polymorphism'' because the type of the object is decided at RUN time.
-** aka ''virtual method invocation'' : JVM decides at runtime which method to call based on the type of the object assigned, not the variable's reference type
-* overloading: 
-** aka ''static polymorphism'' because it's resolved at COMPILE time.
-
+%%tab-tabTitle2
+tab content 2
 /%
 /%
-
-
