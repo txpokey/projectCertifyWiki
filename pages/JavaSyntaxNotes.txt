@@ -443,9 +443,49 @@ public class Example {
 /%
 /%
 /%
+%%tab-Assertions
+%%tabbedSection 
+%%tab-AssertionError
+%%prettify 
+{{{
+assert booleanExpressionWithOutErrorMessage ;
 
+// Which is equivalent to:
 
+if(! booleanExpressionWithOutErrorMessage) {
+     throw new AssertionError();
+}
+}}}
+/%
+%%prettify 
+{{{
+assert booleanExpressionWithErrorMessage: "Message about the error";
 
+// Which is equivalent to:
+
+if(! booleanExpressionWithErrorMessage) {
+     throw new AssertionError("Message about the error");
+}
+}}}
+/%
+/%
+%%tab-enableAsserts
+
+%%prettify 
+{{{
+java –ea TestAssertion // enable for TestAssertion program
+java –ea TestAssertion Hi
+java –ea:ClassName MainClass
+java –ea:com.example MainClass
+java –ea:... MainClass // anonymous package
+java –esa MainClass // System assertions
+java –da MainClass // disable asserts for MainClass program
+java –ea -da:ClassOne MainClass // enable all but ClassOne
+}}}
+/%
+/%
+/%
+/%
 %%tab-autoboxing
 ;autoboxing:Converting a primitive value (an int, for example) into an object of the corresponding wrapper class (Integer) is called autoboxing. The Java compiler applies autoboxing when a primitive value is:
 # Passed as a parameter to a method that expects an object of the corresponding wrapper class.

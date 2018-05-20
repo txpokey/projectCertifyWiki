@@ -1,4 +1,5 @@
-!!! Assertions
+%%tabbedSection 
+%%tab-Assertions
 %%tabbedSection 
 %%tab-AssertionError
 %%prettify 
@@ -39,15 +40,6 @@ java –ea -da:ClassOne MainClass // enable all but ClassOne
 }}}
 /%
 /%
-
-
-
-
-
-
-
-
-
-
 /%
 /%
+
