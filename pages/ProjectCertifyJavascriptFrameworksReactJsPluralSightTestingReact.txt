@@ -1,0 +1,11 @@
+||Type of Test || What It Tests || Required Tools
+|Unit Test | A single function or service | Mocha / Jest
+|Component Test | A single component (functionality) | Jest / Enzyme
+|Snapshot Test | A single component (regression) | Jest
+|End-to-End Test | Interaction between multiple components | Protractor / Cypress
+
+
+
+||heading 1||heading 2||3 
+| cell 1   | cell 2
+
