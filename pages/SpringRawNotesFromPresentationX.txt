@@ -1,45 +1,8 @@
 %%tabbedSection 
-%%tab-Assertions
-%%tabbedSection 
-%%tab-AssertionError
-%%prettify 
-{{{
-assert booleanExpressionWithOutErrorMessage ;
-
-// Which is equivalent to:
-
-if(! booleanExpressionWithOutErrorMessage) {
-     throw new AssertionError();
-}
-}}}
+%%tab-tabTitle1
+tab content 1
 /%
-%%prettify 
-{{{
-assert booleanExpressionWithErrorMessage: "Message about the error";
-
-// Which is equivalent to:
-
-if(! booleanExpressionWithErrorMessage) {
-     throw new AssertionError("Message about the error");
-}
-}}}
+%%tab-tabTitle2
+tab content 2
 /%
 /%
-%%tab-enableAsserts
-
-%%prettify 
-{{{
-java –ea TestAssertion // enable for TestAssertion program
-java –ea TestAssertion Hi
-java –ea:ClassName MainClass
-java –ea:com.example MainClass
-java –ea:... MainClass // anonymous package
-java –esa MainClass // System assertions
-java –da MainClass // disable asserts for MainClass program
-java –ea -da:ClassOne MainClass // enable all but ClassOne
-}}}
-/%
-/%
-/%
-/%
-

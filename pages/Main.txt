@@ -57,6 +57,7 @@ tab content 2
 
 
 %%tabbedSection 
+
 %%tab-SpringFrameworks
 %%tabbedSection 
 %%tab-overview
@@ -71,11 +72,44 @@ tab content 2
 %%tab-udemy
 * [Ken Krueger : 2018 : Microservices with Spring Cloud| jvmTutorialKruegerMicroservicesWithSpringCloud ]
 /%/%/%
+/%/%
+%%tab-Kubernetes
+%%tabbedSection 
+
+%%tab-install
+%%tabbedSection 
+%%tab-miniKube
+tab content 1
+/%
+%%tab-googleContainer
+tab content 1
+/%
+%%tab-onAWS
+tab content 1
+/%
+%%tab-manual
+tab content 1
 /%/%/%
+
+%%tab-using
+%%tabbedSection 
+%%tab-PODS
+tab content 1
+/%
+%%tab-services
+tab content 1
+/%
+%%tab-Deployments
+tab content 1
+/%/%/%
+/%/%
+
+/%
 %%tabbedSection 
 %%tab-javascript
 %%tabbedSection 
 %%tab-reactJS
 * [PluralSight : React Fundamentals | projectCertifyJavascriptFrameworksReactJsPluralSightReactFundamentals]
+* [PluralSight : React Testing Jest | projectCertifyJavascriptFrameworksReactJsPluralSightTestingReact]
 /%
 /%/%/%
