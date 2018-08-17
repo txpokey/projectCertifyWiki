@@ -1,0 +1,109 @@
+!OAuth2 : authorization 
+* HTTP/JSON friendly way to exchange tokens for delegated authorization
+* takes multiple client architectures into account, varying trust levels
+%%tabbedSection 
+%%tab-intro
+* OAuth 1.0 did not require SSL transport, so it had heavy encryption requirements in its encoding. Also geared for PHP4. 
+* OAuth 2.0 
+** many revisions of final draft, so need to make sure where you implement from
+** RFC 6749, 6750 (bearer) 
+
+/%
+%%tab-overview
+
+* valet parking analogy: how can resource owner give a limited (valet) key to the client
+* terminology
+** OAuth flow 
+** "client" : software that is consuming 
+*** public client : not part of a trust zone
+*** confidential client: part of a (limited) trust zone
+** authorization server : with a trusted relationship with resource server
+** resource owner : owns back end data 
+** resource server : gatekeeper for access to back end data
+** OAuth can support varying trust levels 
+/%
+%%tab-OAuthFlows
+%%tabbedSection 
+%%tab-commonScenarios
+* authorization code flow
+* implicit flow : native local clients
+* client credential flow 
+/%
+%%tab-authorizationCodeFlow
+use case scenario : client web application seeks server side resource 
+
+* authenticate to establish credentials 
+* consent screen 
+* redirect to client with "code" and "state"
+* client directly POSTs into authorization server, using the "code" and providing a callback end point
+** authorization server returns access and refresh in a bearer token
+** need to plan for UI to revoke refresh tokens on demand. 
+** specify redirect-uri in GET as a call back endpoint, with a "state" to associate the original call to call-back 
+/%
+%%tab-implicitFlow
+* consolidated authentication AND authorization step, typically using consent splash
+* authentication returns get authorization token back directly, whereas in code Flow, you had another hop "code" -> token
+** callback uses uri with a hash endpoint. e.g. /cb#
+/%
+%%tab-resourceOwnerPasswordCredentialFlow
+* resource owner password stored on client, and again like implicit, you get authorization token back directly from authentication 
+** dropbox example
+/%
+%%tab-clientCredentialsFlow
+* essentially a headless flow using anonymous login/password
+/%
+/%
+/%
+
+%%tab-openIdAuthenticationFlow
+
+%%tabbedSection 
+%%tab-problem
+* using OAuth to authenticate is a classic exploit victimizing (e.g.) Facebook
+** can give authorization token to /userinfo access point to malicious clients
+** caused a lot of non-conformant bolt ons to increase security. 
+/%
+%%tab-openIdConnect
+* [openId connect|http://openid.net/connect/]
+* builds on OAuth : using either "application" (server based) or "implicit" (client based) flows
+* adding id token and (standardized) /userinfo endpoint 
+* plus additional protocols: 
+** discovery & dynamic registration
+** session management
+/%
+%%tab-players
+* identity provider
+* authorization endpoint
+* token endpoint
+** responds with id_token, which client needs to validate
+** claims in id_token: 
+*** issuer
+*** Subject
+*** Audience (client that initiated request)
+*** Expiration
+* user endpoint 
+/%
+/%
+/%
+%%tab-OAuthConcerns
+%%tabbedSection 
+%%tab-specBloat
+* protocol originally, but became framework to write protocols
+* bottom line: a lot of home brewing, each leaving little chance for inter-operablity
+/%
+%%tab-bearer
+* bearer token : could be stolen, but not revocable? so secure transport it crucial
+** MAC tokens would be an improvement
+/%
+%%tab-theaters
+* security theaters
+** so much SSL validation turned off, and errors not being handled.
+** a big problem for bearer tokens
+/%
+%%tab-attacks
+* attack surface is large: many input parameters in the protocol that can each be manipulated
+** need registration system for clients so you can validate the protocol parameters
+/%
+/%
+/%
+/%

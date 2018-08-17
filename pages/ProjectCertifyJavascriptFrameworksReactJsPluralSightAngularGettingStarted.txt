@@ -1,0 +1,337 @@
+%%tabbedSection 
+%%tab-tabTitle1
+; angular app : components and services 
+; component : template(HTML) + class(javaScript: properties + behavior) + metaData
+; module : namespace isolating, organizational entity for components, starting with "root" module, including feature modules. 
+* ES6(2015) module: organize code :: 
+** ES modules : do imports or exports 
+** path.ts -> path.js :: import { Path } from './path' 
+* Angular Module : application organization structure :: building blocks of namespace isolation
+** Root, Feature, Shared 
+** application boundary conditions: e.g. one component, only one module
+; component(object) : '@' :: "decorator" aka annotation in Java 
+; directive : <directive/> in HTML syntax
+; template : view template design pattern 
+; binding : {{ double brackets mean events are generated for variable changes}}
+; component selector : name of the component :: name of the directive in HTML
+; @NgModule( metaDataObject ) : angular module
+* @Component( metaDataObject ) { ... }
+** styles and stylesUrl 
+/%
+%%tab-tabTitle2
+* bootstrapping : AppModule looks for AppComponent // if you named things per convention
+* bindings : 
+** template events calls upon behavior defined in the component class. or the component's properties
+** interpolation : {{ templateEXpression }} : looks to the component for context. one way from class to template 
+* structural attributes :
+** *ngIf="templateExpression" and *ngFor="let p of products" available by BrowserModules
+** *ngFor in iterates over object properties ...
+/%
+%%tab-propertyBinding
+* example: 
+%%prettify 
+{{{
+<img [src]='product.imageUrl'>
+<button (click)='toggleImageCallBack()'>
+<input [(ngModel)]='listFilterProperty'>
+}}}
+/%
+/%
+%%tab-pipes
+* example:  
+%%prettify 
+{{{
+{{ productPrice | currency:USD:true:'1.2-2' | lowerCase }}
+}}}
+* @Pipe( { name: ... } ) export class FooPipe implements PipeTransform { transform( ... ) }
+/%
+/%
+%%tab-interfaces
+* typeScript syntax 
+* example: 
+%%prettify 
+{{{
+export interface Product { ... ; calculateDiscount(percent: number): number; }
+}}}
+/%
+
+/%
+%%tab-nested
+* decorate incoming component fields with 
+%%prettify 
+{{{
+@Input()
+}}}
+/%
+, then decorate the element with a binding 
+
+%%prettify 
+{{{
+<pm-star [rating]='product.starRating'> </pm-star>
+}}}
+/%
+* decorate outgoing data, carried as an event payload, by decorating the class field member (a factory pattern for event) with 
+%%prettify 
+{{{
+@Output() notify: EventEmitter<string> = new  EventEmitter<string>();
+onClick() { this.notify.emit('click payload!'); }
+}}}
+/%
+and then add the (click) binding to the component template
+%%prettify 
+{{{
+<div (click)='onClick()'>...</div>
+}}}
+/%
+plus the notify event to the containing component's element
+<
+%%prettify 
+{{{
+<pm-star [rating]='product.starRating' (notify)='onNotify($event)')> </pm-star>
+}}}
+
+but that onNotify() is the callback on the containing component, and has to be declared on *that* component's class:
+%%prettify 
+{{{
+export class ProductListComponent {
+onNotify( message: string) void { ... processing the event message happens here ; }
+}
+}}}
+/%/%/%
+
+
+
+%%tab-service
+* constructor injection, after registering with service injection registry. 
+** register-subscribe at the component level or at module level 
+** each time service registry will create a new service instance. so don't count on singleton pattern
+* @Injectable allows for receipt of dependency 
+* need to privatize members as default is to expose them 
+%%prettify 
+{{{
+    import { Injectable } from '@angular/core'
+    @Injectable()
+    export class ProductService {
+        getProducts(): IProduct[] {
+            return [ ... , ... ] ;
+        }
+    }
+}}}
+* register a "provider"
+%%prettify 
+{{{
+import { ProductService } from './products/product.service';
+@Component({
+    selector: 'pm-root',
+    template: `
+        <div><h1>{{pageTitle}}</h1>
+        <pm-products></pm-products>
+        </div>
+    `,
+    providers: [ProductService]
+})
+export class AppComponent { }
+}}}
+/%
+
+/%
+* constructor inject the dependency 
+%%prettify 
+{{{
+import { ProductService } from './product.service';
+@Component({
+    selector: 'pm-products',
+    templateUrl: './product-list.component.html'
+})
+export class ProductListComponent {
+    constructor(private _productService: ProductService) {
+    }
+}
+}}}
+/%/%
+%%tab-observables
+; observables : event where array elements arrive over time asynchronously
+* RxJS( Reactive Extensions ) since observables are ES2016 or later 
+* operators behaving async, pub-sub model 
+* vs. promises 
+** single, not lazy, not cancelled
+** observables directly support map-reduce 
+** do( expression ) in fluent chain can peek into the stream. JSON.stringify( data )
+** observables have a Observable.throw(error.message)
+* x.subscribe( funcFunc , errFunc, completeNotifier )
+* http service 
+** example of registering the service "provider" at a component level (top level in this case)
+%%prettify 
+{{{
+import { ProductService } from './products/product.service';
+@Component({
+    selector: 'pm-root',
+    template: `
+    <div><h1>{{pageTitle}}</h1>
+    <pm-products></pm-products>
+    </div>
+    `,
+    providers: [ProductService]
+})
+export class AppComponent { }
+}}}
+/%
+
+* defining the service, per se.
+
+%%prettify 
+{{{
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/catch';
+import 'rxjs/add/operator/do';
+...
+@Injectable()
+export class ProductService {
+    private _productUrl = 'www.myWebService.com/api/products';
+    constructor(private _http: HttpClient) { }
+    getProducts(): Observable<IProduct[]> {
+        return this._http.get<IProduct[]>(this._productUrl)
+            .do(data => console.log('All: ' + JSON.stringify(data)))
+            .catch(this.handleError);
+    }
+    private handleError(err: HttpErrorResponse) {
+    }
+}
+}}}
+/%
+* consuming the service, in this case on init:
+%%prettify 
+{{{
+ngOnInit(): void {
+    this._productService.getProducts()
+        .subscribe(products => this.products = products,
+        error => this.errorMessage = <any>error);
+}
+}}}
+/%
+
+/%
+%%tab-routing
+* routing is component based. 
+* 1st match win strategy
+* add 
+%%prettify 
+{{{
+<base href="/">
+}}}
+/%
+ in index.html 
+* RouterModule is in @angular/router 
+%%prettify 
+{{{
+RouterModule.forRoot( [ ... routing array here ... ] , { useHash: true })
+}}}
+* child module routes are specified: 
+%%prettify 
+{{{
+RouterModule.forChild( [ ... routing array here ... ] , { useHash: true })
+
+}}}
+/%
+
+/%
+* routerLink and routerOutlet 
+* routing is a path x component table
+%%prettify 
+{{{
+{ path: 'products', component: ProductListComponent },
+{ path: 'products/:id', component: ProductDetailComponent },
+{ path: 'welcome', component: WelcomeComponent },
+{ path: '', redirectTo: 'welcome', pathMatch: 'full' },
+{ path: '**', component: PageNotFoundComponent }
+]
+}}}
+/%
+%%prettify 
+{{{
+@Component({
+    selector: 'pm-root',
+    template: `
+        <ul class='nav navbar-nav'>
+            <li><a [routerLink]="['/welcome']">Home</a></li>
+            <li><a [routerLink]="['/products']">Product List</a></li>
+        </ul>
+        <router-outlet></router-outlet>
+        `
+})
+}}}
+/%
+/%
+%%tab-routing2
+* passing variables to a route
+%%prettify 
+{{{
+<td>
+    <a [routerLink]="['/products', product.productId]">
+        {{product.productName}}
+    </a>
+</td>
+}}}
+/%
+%%prettify 
+{{{
+import { ActivatedRoute } from '@angular/router';
+}}}
+/%
+
+%%prettify 
+{{{
+constructor(private _route: ActivatedRoute) {
+    console.log(this._route.snapshot.paramMap.get('id'));
+}
+}}}
+/%
+* routing from code, using back button with (click) bound to an onClick() callback as an example: 
+%%prettify 
+{{{
+import { Router } from '@angular/router';
+
+}}}
+/%
+...
+%%prettify 
+{{{
+constructor(private _router: Router) { }
+
+}}}
+/%
+%%prettify 
+{{{
+onBack(): void {
+this._router.navigate(['/products']);
+}
+}}}
+/%
+
+
+/%
+%%tab-modules
+* provides context for templates to execute, resolves declared dependency and injections
+* bootstrap array : only root module // isomorphic
+* declaration array: aggregation for component membership in instant module 
+* modules define a separation criteria: components belong to one module only 
+* could be lazy loaded by route... (not explored in this course)
+* exports array : why? other than to expose ala a.out
+** never export a service, as they are registered at root module using injector interfacing
+* imports array: 
+** supporting modules' exports
+** could create a routes module and import that... but route modules come last, building a decision tree from the bottom
+** imports are not inherited. a box and not a tree 
+** only import BrowserModule at root module, but other modules should import "CommonModule" for things like *ngIf
+* providers array: 
+** expressed at root module so service referable application wide. 
+** but could be expressed at component level to encapsulate the service from being application wide. NOT shared module
+** same rules as when I was doing maven, and creating a special sub-project to prevent dependency loops 
+* shared module
+** selectively share common dependencies via export
+/%
+%%tab-tabTitleN
+* FOO
+/%
+/%

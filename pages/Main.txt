@@ -63,6 +63,12 @@ tab content 2
 %%tab-overview
 * [Overview | projectCertifySpringFrameworksOverview]
 /%
+%%tab-SpringSecurity
+* [JWT Tokens | projectCertifySecurityJwtTokens]
+* [OAuth2 | projectCertifySecurityOAuth2]
+* [spring security | projectCertifySecuritySpringPluralSightHansen]
+
+/%
 %%tab-SpringMicroservices
 %%tabbedSection 
 %%tab-pivotal
@@ -79,11 +85,22 @@ tab content 2
 %%tab-install
 %%tabbedSection 
 %%tab-miniKube
-tab content 1
+* VM for miniKube vs. VM for running Docker on Wintel
+** running both a Master/Node pair
+** external CLI that uses the REST "apiServer" endpoint on Master exposed by miniKube VM
+** docker || rkt is running as container "engine", normally in the Node
+* CLI: 
+** minikube start --vm-driver=... kubernetes-version="..."
+** kubectl config current-context
+** kubectl get nodes
+** minikube stop // like docker, as container can be reanimated from this point
+** minikube delete // clobber
+
 /%
 %%tab-googleContainer
-tab content 1
+kubernetes : layered on top of google compute engine (kubernetes as a service)
 /%
+
 %%tab-onAWS
 tab content 1
 /%
@@ -108,6 +125,9 @@ tab content 1
 %%tabbedSection 
 %%tab-javascript
 %%tabbedSection 
+%%tab-angular1
+* [PluralSight : angular | projectCertifyJavascriptFrameworksReactJsPluralSightAngularGettingStarted]
+/%
 %%tab-reactJS
 * [PluralSight : React Fundamentals | projectCertifyJavascriptFrameworksReactJsPluralSightReactFundamentals]
 * [PluralSight : React Testing Jest | projectCertifyJavascriptFrameworksReactJsPluralSightTestingReact]

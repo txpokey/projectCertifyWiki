@@ -20,20 +20,63 @@
 %%tab-LambdaUseCases
 
 !! Lambda use case scenarios
-# A variable declaration
-# An assignment
-# A return statement
-# An array initializer
-# Method or constructor arguments
-# A ternary conditional expression
-# A cast expression
+; A variable declaration :     
+%%prettify 
+{{{
+final BiFunction<String, Integer, Integer> remapper = (k, v) -> v == null ? 42 : v + 41…
+}}}
+/%
+
+
+; An assignment : 
+%%prettify 
+{{{
+Consumer<String> c = (String s) -> {
+    s = "hello";
+    System.out.println(s);
+};
+}}}
+/%
+
+; A return statement : 	
+%%prettify 
+{{{
+@Bean
+	public CommandLineRunner run(RestTemplate restTemplate) throws Exception {
+		return args -> {
+			Quote quote = restTemplate.getForObject(
+					"http://gturnquist-quoters.cfapps.io/api/random", Quote.class);
+			log.info(quote.toString());
+		};
+	}
+}}}
+/%
+
+; An array initializer :
+; Method or constructor arguments :         
+%%prettify 
+{{{
+public static List<Integer> findNumbers(
+                @Nonnull List<Integer> l,
+                @Nonnull BiPredicate<Integer, Integer> p) {
+            final Integer fudgeFactor = 10;
+            Predicate<Integer> predicateWithFudgeFactor = i -> p.test(i, i + fudgeFactor);
+            List<Integer> newList = l.stream().filter(predicateWithFudgeFactor).collect(Collectors.toList());
+            return newList;
+        }
+    }
+}}}
+/%
+
+; A ternary conditional expression
+; A cast expression 
 /%
 %%tab-functionalInterfaces
 !! Lambda as functional interfacing
 * lambdas are assignable to target type which are functional: 
 ** interfaces having only one abstract, non-default method
 ** there are a set of rules for inheritance and shadowing vs. functional interfaces valid for lambda target types
-* compiler infers the target type, and from there the functional method signature. Then the compiler plays match-up, so the lambda expression can be assigned to the target type. 
+* compiler infers the target type, and from there infers the functional method signature. Then the compiler plays match-up, so the lambda expression can be assigned to the target type. 
 * in Java, you can't always program in a purely functional style (i.e. without any side effect), only in a functional-style.
 
 

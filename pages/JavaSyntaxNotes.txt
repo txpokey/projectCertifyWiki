@@ -59,7 +59,7 @@ public String toString()
 %%tab-Polymorphism
 !! Polymorphism
 * generally: a single interface to entities of different types: 
-** ''Ad hoc polymorphism (overriding)'': function has different implementations depending on specified types and combinations.
+** ''Ad hoc polymorphism (overloading)'': function has different implementations depending on specified types and combinations.
 ** Parametric polymorphism: generics in object-oriented programming
 ** Subtype (aka inclusion polymorphism): different classes related by some common superclass
 !! Polymorphism implementation : 

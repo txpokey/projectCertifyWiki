@@ -238,7 +238,7 @@ Object defaultMethodName(...) {}
 ** @EnableZuulProxy
 * automatically activates & engages Ribbon, Hystrix capabilities for calls into the gateway
 * routing black and white listing : 
-** e.g. zuul.ignored-saervices: * 
+** e.g. zuul.ignored-services: * 
 ** zuul.prefix:  /api
 
 /%

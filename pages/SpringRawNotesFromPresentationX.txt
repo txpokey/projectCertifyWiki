@@ -1,8 +1,70 @@
 %%tabbedSection 
-%%tab-tabTitle1
-tab content 1
+%%tab-topLevelView
+%%tabbedSection 
+%%tab-arch
+orchestration supporting cast and microservices per se, all in (docker|rkt) containers
+* arch components
+** masters
+** nodes
+** pods
+** services
+** deployments
 /%
 %%tab-tabTitle2
 tab content 2
 /%
 /%
+
+/%
+%%tab-miniKube
+* VM for miniKube vs. VM for running Docker on Wintel
+** running both a Master/Node pair
+** external CLI that uses the REST "apiServer" endpoint on Master exposed by miniKube VM
+** docker || rkt is running as container "engine", normally in the Node
+* CLI: 
+** minikube start --vm-driver=... kubernetes-version="..."
+** kubectl config current-context
+** kubectl get nodes
+** minikube stop // like docker, as container can be reanimated from this point
+** minikube delete // clobber
+
+/%
+%%tab-googleContainer
+kubernetes : layered on top of google compute engine (kubernetes as a service)
+/%
+/%
+
+=-=-=-
+%%tab-Kubernetes
+%%tabbedSection 
+%%tab-topLevelView
+tab content 1
+
+/%
+%%tab-install
+%%tabbedSection 
+%%tab-miniKube
+tab content 1
+/%
+%%tab-googleContainer
+tab content 1
+/%
+%%tab-onAWS
+tab content 1
+/%
+%%tab-manual
+tab content 1
+/%/%/%
+
+%%tab-using
+%%tabbedSection 
+%%tab-PODS
+tab content 1
+/%
+%%tab-services
+tab content 1
+/%
+%%tab-Deployments
+tab content 1
+/%/%/%
+/%/%

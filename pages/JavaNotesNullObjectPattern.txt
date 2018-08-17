@@ -42,7 +42,7 @@ String summaryOrException = summary.orElseThrow( () -> new Exception() );
 %%prettify 
 {{{
 String summaryStr = summary.filter(s -> s.length() > 10).orElse("Short summary");
-int summaryLength = summary.map(s -> s.length()).orElse("Short summary");
+int summaryLength = summary.map(s -> s.length()).orElse("Short summary"); // TODO: HUH? 
 }}}
 /%
 /%

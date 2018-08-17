@@ -1,0 +1,39 @@
+! JWT
+%%tabbedSection 
+%%tab-intro
+* [asymmetric public key | https://en.wikipedia.org/wiki/Public-key_cryptography]
+* [symmetric shared secret | https://en.wikipedia.org/wiki/Symmetric-key_algorithm]
+* tokens : 
+** typically signed and have an expiry
+** client : requests token
+** issuer : issues  token
+** resource : consumes  token
+/%
+%%tab-history
+* SAML 1.1/2.0 : xml based
+* SWT : simple web token : URL encoded, symmetric only 
+* JWT : JSON web token : more saml features and encryption options than SWT
+** set of agreed signatures and crypto algorithms, rather than the open model that SAML sports. 
+/%
+%%tab-example
+[{Image src='jwtExample.png' }]
+/%
+%%tab-logicalDomains
+* header
+** metadata including algorithms and keys used
+* claims (I.e. mapping keys)
+** reserved (i.e. standard) claims
+*** iss : Issuer
+*** aud : Audience
+*** iat : IssuedAt (i.e. creation time)
+*** exp : Expiration 
+*** sub : Subject : what kind of token (i.e. userid)
+** application relative claims
+* serialize token : base64url encode the 
+* "epoc" times used in token
+/%
+
+%%tab-tabTitle2
+tab content 2
+/%
+/%
