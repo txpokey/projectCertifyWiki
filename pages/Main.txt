@@ -102,7 +102,33 @@ kubernetes : layered on top of google compute engine (kubernetes as a service)
 /%
 
 %%tab-onAWS
-tab content 1
+* interfacing methods
+** AWS EKS : preferred 
+** kops : else 2nd best on AWS 
+** kubeadm 
+%%tabbedSection 
+%%tab-kops
+* kops : mac/linux only 
+* windows need VM e.g. virtual box with vagrant 
+** vagrant init ubuntu/xenial64 
+** vagrant up
+* AWS cli prerequisite of python-pip
+** pip install awscli 
+* AWS : identity and access management console 
+** create new user. e.g. 'kops' 
+** aws configure 
+** give 'kops' user admin permissions on AWS : 
+*** attach 'administrativeAccess' policy to kops user
+** S3 bucket : for kops state residing in the region for your cluster
+** use route-53 to create hosted (DNS) zone so kops can manage this for you 
+*** will get DNS config data so that you can instruct your domain name server to point sub-domain to AWS Route 53
+
+/%
+%%tab-kops2
+tab content 2 kopsz
+/%
+/%
+
 /%
 %%tab-manual
 tab content 1

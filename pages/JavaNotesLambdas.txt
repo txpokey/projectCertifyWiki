@@ -3,7 +3,22 @@
 %%tabbedSection 
 %%tab-definition
 !! definition
-* In practical terms, it may be safe to think of lambda expressions as anonymous (private) methods, but they are different from anonymous classes. lambdas are private methods, anonymous classes are private inner methods. Each of their enclosing classes. 
+* In practical terms, it may be safe to think of lambda expressions as anonymous (private) methods, but they are different from anonymous classes.
+** differences: 
+*** method:  
+**** Lambdas implement a functional interface.
+**** Anonymous Inner Classes can extend a class or implement an interface with any number of methods.
+*** compilation: 
+**** Anonymous compiles to a class, 
+**** while lambda stored in a class as a private static method, and invoked as an invokedynamic instruction.
+*** variables:
+**** lambdas cannot have state: Lambdas can only access final or effectively final.
+**** Anonymous inner classes can use instance variables and thus can have state, 
+*** scope: Lambdas can't define a variable with the same name as a variable in enclosing scope.
+*** two lambda types: [(awesome examples HERE)|https://dzone.com/articles/how-lambdas-and-anonymous-inner-classesaic-work]
+**** Non-capturing lambdas only use fields inside their bodies, whereas 
+**** capturing lambdas access fields outside their bodies (like a closure)
+*** [additional discussion|https://stackoverflow.com/questions/22637900/java8-lambdas-vs-anonymous-classes] 
 * BNF: parameters arrow  body
 ** {{{ () -> "Hello World" }}}
 ** {{{ (String s) -> "Hello World:> " + s }}}

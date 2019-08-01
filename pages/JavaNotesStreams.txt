@@ -64,7 +64,7 @@ tab content 2
 
 %%tabbedSection 
 %%tab-aggregations
-|aggregation|[javaNotesOnAggregationViaOraTutorial]|
+|aggregation == streams operations|[javaNotesOnAggregationViaOraTutorial]|
 /%
 %%tab-builder
 All MethodsInstance MethodsAbstract MethodsDefault Methods

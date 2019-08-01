@@ -1,6 +1,8 @@
 !!!Spring Cloud
 %%tab-SpringCloud
 
+[Microservices with Spring Cloud by Ken Krueger|https://www.udemy.com/microservices-with-spring-cloud/]
+
 %%tabbedSection 
 
 %%tab-overview

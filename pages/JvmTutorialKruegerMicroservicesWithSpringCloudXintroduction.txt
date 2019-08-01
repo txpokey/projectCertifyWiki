@@ -17,7 +17,7 @@
 *** integration of enterprise applications
 *** smart integration, dumb services
 ** microservices
-*** dump integration (registry), smart services
+*** dumb integration (registry), smart services
 *** integration of co-services within a single application
 /%
 %%tab-monolithic

@@ -1,5 +1,6 @@
 !Method Reference
 
+[examples of lambda method references in java|https://www.codementor.io/eh3rrera/using-java-8-method-reference-du10866vx]
 * Instead of using AN ANONYMOUS CLASS you can use A LAMBDA EXPRESSION, And if this just calls one method, you can use A METHOD REFERENCE
 * method reference is the shorthand syntax for a lambda expression that executes just ONE method.
 * '::' terminal-operator for method references
