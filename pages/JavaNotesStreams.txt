@@ -42,6 +42,13 @@ IntStream s1 = new Random().ints(5, 1, 10);
 /%
 %%tab-intermediate
 !Intermediate operations with streams : filters (sorts & mappings)
+[flatmap example|https://howtodoinjava.com/java8/stream-flatmap-example/] flatMap deals with 
+%%prettify 
+{{{
+Stream.flatMap() helps in converting Collection<Collection<T>> to Collection<T>
+}}}
+/%
+
 [streamIntermediates.png]
 /%
 %%tab-terminate

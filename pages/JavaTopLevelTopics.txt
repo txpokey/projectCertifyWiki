@@ -1,6 +1,7 @@
 * [Scripting Java (10)|https://docs.oracle.com/javase/10/scripting/using-java-scripts.htm#JSJSG114]
 
 %%tabbedSection 
+
 %%tab-syntax
 | syntax   | [Syntax Notes|javaSyntaxNotes]
 | Fluent Programming   | [ method chaining (wikipedia) | https://en.wikipedia.org/wiki/Fluent_interface ]
@@ -11,18 +12,27 @@
 %%tab-pragmatics
 | compilation warnings   | [Suppress Warnings|javaAnnotationsSupressWarnings]
 | Null Object Pattern   | [Optional |JavaNotesNullObjectPattern]
-
 /%
-%%tab-corePackages
+%%tab-Collections
 | collections   | [collections|javaNotesCollections]\\[streams operations on collections|javaNotesCollectionsOperationsOn]\\[data filtering on Collections|javaNotesCollectionsDataFilteringOperations ]
-| exceptions   | [exceptions|javaNotesExceptions]
-
-| i/o | [java i/o fundamentals|javaNotesIoFundamentals]\\[java NIO 1&2 |javaNotesNewIoFundamentals]\\[serialization|javaNotesOnObjectSerialization]
-
-| streams   | [streams|javaNotesStreams]\\[streams operations on collections|javaNotesCollectionsOperationsOn]
-| threading   | [threading|javaNotesThreading]\\[concurrency|javaNotesThreadingConcurrency]
+/%
+%%tab-DatesTime
 | time   | [immutable date/time|javaNotesImmutableDateAndTime]\\[parsing into immutable date/time|javaNotesImmutableDateAndTimeParsing]
+/%
+%%tab-Exceptions
+| exceptions   | [exceptions|javaNotesExceptions]
+/%
+%%tab-IO
+| i/o | [java i/o fundamentals|javaNotesIoFundamentals]\\[java NIO 1&2 |javaNotesNewIoFundamentals]\\[serialization|javaNotesOnObjectSerialization]
+/%
+%%tab-Streams
+| streams   | [streams|javaNotesStreams]\\[streams operations on collections|javaNotesCollectionsOperationsOn]\\[Streams Operations (Oracle Tutorial)|
+JavaNotesOnAggregationViaOraTutorial]
+/%
+%%tab-Threading
+| threading   | [threading|javaNotesThreading]\\[concurrency|javaNotesThreadingConcurrency]
+/%
+
 
 /%
 
-/%
