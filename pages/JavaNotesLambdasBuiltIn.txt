@@ -1,11 +1,12 @@
+!mnemonic : PCFUS 
 !Built-In Lambdas
 * Predicate<T>
 * Consumer<T>
 * Function<T, R>
-* Supplier<T>
 * UnaryOperator<T>
+* Supplier<T>
 
-and 1st four have 2-ple duals :
+and 2-ple variations :
 
 * BiPredicate<L, R>
 * BiConsumer<T, U>

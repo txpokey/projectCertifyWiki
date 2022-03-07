@@ -176,7 +176,7 @@ interface Processable {
 * More specific interfaces (or classes) always WIN over less specific ones:
 ** Classes always WIN over interfaces. If a class overrides a default method, the class method will be the one used.
 ** when an inherited instance method from a class overrides a default interface method:
-* to call the default implementation of the method, you can do it with the name of the interface followed by the keyword 'super':
+*** to call the default implementation of the method, you can do it with the name of the interface followed by the keyword 'super':
 {{{
 public void processInParallel() {
     Processable.super.processInParallel(); // only works with default methods
@@ -369,8 +369,10 @@ public enum VolumeValued {
     }
 }
 }}}
-/%
 
+/%
+%%tab-var
+;[local variable type inference|https://docs.oracle.com/en/java/javase/11/language/local-variable-type-inference.html]
 /%
 /%
 %%tab-Encapsulation

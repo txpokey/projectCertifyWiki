@@ -57,17 +57,34 @@ Consumer<String> c = (String s) -> {
 %%prettify 
 {{{
 @Bean
-	public CommandLineRunner run(RestTemplate restTemplate) throws Exception {
-		return args -> {
-			Quote quote = restTemplate.getForObject(
-					"http://gturnquist-quoters.cfapps.io/api/random", Quote.class);
-			log.info(quote.toString());
-		};
-	}
+public CommandLineRunner run(RestTemplate restTemplate) throws Exception { 
+  return args -> { 
+    Quote quote = restTemplate.getForObject(
+        "http://gturnquist-quoters.cfapps.io/api/random", Quote.class);
+    log.info(quote.toString());
+  };
+} 
+
 }}}
 /%
 
-; An array initializer :
+; An array initializer : 
+%%prettify
+{{{
+    public void ternaryOperatorsUseCaseForLambdaUsingArrayInitializer() {
+        Integer config = 1;
+        Integer example = 3;
+        Predicate<Integer>[] array = new Predicate[]{(i) -> {
+            return 0 == (Integer) i % 2;
+        }, (i) -> {
+            return 0 == (Integer) i % 3;
+        }};
+        Predicate<Integer> testResult = 0 == config ? array[0] : array[1];
+        boolean result = testResult.test(3);
+        assert result;
+    }
+
+}}}
 ; Method or constructor arguments :         
 %%prettify 
 {{{
@@ -84,13 +101,25 @@ public static List<Integer> findNumbers(
 /%
 
 ; A ternary conditional expression
+%%prettify
+{{{
+    public void ternaryOperatorsUseCaseForLambda(){
+        Integer config = 1 ;
+        Integer example = 3 ;
+        Predicate<Integer> testResult = 0 == config ? ( i ) -> { return 0 == i % 2 ; } :
+                (i) -> { return 0 == i % 3 ; } ;
+        boolean result = testResult.test(3);
+        assert result ;
+    }
+}}}
 ; A cast expression 
 /%
 %%tab-functionalInterfaces
 !! Lambda as functional interfacing
-* lambdas are assignable to target type which are functional: 
-** interfaces having only one abstract, non-default method
-** there are a set of rules for inheritance and shadowing vs. functional interfaces valid for lambda target types
+* lambdas are assignable to a target type, which is functional.
+** functional as in:
+*** interfaces having only one abstract, non-default method
+*** there are a set of rules for inheritance and shadowing vs. functional interfaces valid for lambda target types
 * compiler infers the target type, and from there infers the functional method signature. Then the compiler plays match-up, so the lambda expression can be assigned to the target type. 
 * in Java, you can't always program in a purely functional style (i.e. without any side effect), only in a functional-style.
 

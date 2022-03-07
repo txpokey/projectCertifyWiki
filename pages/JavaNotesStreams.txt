@@ -47,12 +47,22 @@ IntStream s1 = new Random().ints(5, 1, 10);
 {{{
 Stream.flatMap() helps in converting Collection<Collection<T>> to Collection<T>
 }}}
+
 /%
 
 [streamIntermediates.png]
 /%
 %%tab-terminate
 !Terminal operations : sinks (consumers)
+{{{
+        Stream<String> s = Stream.of("Geeks", 
+                                     "for", 
+                                     "GeeksforGeeks", 
+                                     "Geeks Classes"); 
+  
+        // using Collectors toList() function 
+        List<String> myList = s.collect(Collectors.toList()); 
+}}}
 [streamTerminators.png]
 /%
 %%tab-lazy
