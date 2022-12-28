@@ -1,6 +1,8 @@
+* [Java 18 SE documentation|https://docs.oracle.com/en/java/javase/18/]
 * [Java 10 SE documentation|https://docs.oracle.com/javase/10/index.html]
 
 * [Java Tutorials Learning Paths|https://docs.oracle.com/javase/tutorial/tutorialLearningPaths.html]
+
 
 
 %%tabbedSection 
@@ -39,6 +41,9 @@ tab content 2
 | Null Object Pattern   | [Optional |JavaNotesNullObjectPattern]
 
 
+/%
+%%tab-glossary
+[semanticVersioning]
 /%
 
 %%tab-todoList
